@@ -110,7 +110,7 @@
               <div
                 class="formData">
                 <label>À combien de tournois GameOn avez-vous déjà participé ?</label><br>
-                <input type="number" class="text-control" id="quantity" name="quantity" min="0" max="99"><br>
+                <input type="number" class="text-control" id="quantity" name="quantity" min="0" max="99" oninput="return myForm.realtimeValidation('tourney')"><br>
                 <p class="errorMessage" id="tourneyError">Entrez un nombre de 0 à 99.</p>
               </div>
               <p class="text-label">A quel tournoi souhaitez-vous participer cette année ?</p>

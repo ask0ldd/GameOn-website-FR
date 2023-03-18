@@ -73,7 +73,7 @@ img {
   font-weight: 400px;
   color: #ff4e60;
   padding: 4px 0 8px 0;
-  /*display: none;*/
+  display: none;
 }
 
 @media screen and (max-width: 768px) {

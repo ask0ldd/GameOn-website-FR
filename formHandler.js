@@ -35,11 +35,11 @@ class Form{
 
         // linking each form input to the its validation function
         this.validationFunctions = {
-            'firstname' : () => checkName('#first'),
-            'lastname' : () => checkName('#last'),
-            'birthdate' : () => checkDate('#birthdate'),
-            'tourney' : () => checkNumber('#quantity'),
-            'locations' : () => checkLocations('location'),
+            'firstname' : () => this.isName('#first'),
+            'lastname' : () => this.isName('#last'),
+            'birthdate' : () => this.isDate('#birthdate'),
+            'tourney' : () => this.isBetween_0_and_99('#quantity'),
+            'locations' : () => this.isOneLocationChecked('location'),
             'conditions' : () => !document.querySelector('#checkbox1').checked
         }
     }
@@ -78,8 +78,8 @@ class Form{
         return false
     }
 
-    validate(field){
-        this.validationFunctions[input]() === false ? this.errorNodes[input].show() : this.errorNodes[input].hide()
+    realtimeValidation(field){
+        this.validationFunctions[field]() === false ? this.errorNodes[field].show() : this.errorNodes[field].hide()
     }
 }
 
