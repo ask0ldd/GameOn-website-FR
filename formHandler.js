@@ -18,7 +18,6 @@ class errorMessageNode {
 }
 
 // class form
-
 class Form{
 
     constructor(){
@@ -80,6 +79,10 @@ class Form{
 
     realtimeValidation(field){
         this.validationFunctions[field]() === false ? this.errorNodes[field].show() : this.errorNodes[field].hide()
+    }
+
+    fullFormValidation(){
+        
     }
 }
 
