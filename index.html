@@ -61,7 +61,7 @@
               id="reserve"
               action="index.html"
               method="get"
-              onsubmit="return myForm.fullValidation()"
+              onsubmit="return myForm.fullFormValidation()"
             >
               <div
                 class="formData">
@@ -74,7 +74,7 @@
                   minlength="2"
                   oninput="return myForm.inputValidation('firstname')"
                 /><br>
-                <p class="errorMessage" id="prenomError">Veuillez entrer 2 caractères valides ou plus.</p><br> <!-- changer message si nombre ou type de caracteres -->
+                <p class="errorMessage" id="prenomError">Veuillez entrer 2 caractères valides ou plus.</p><!-- changer message si nombre ou type de caracteres -->
               </div>
               <div
                 class="formData">
@@ -86,7 +86,7 @@
                   name="last"
                   oninput="return myForm.inputValidation('lastname')"
                 /><br>
-                <p class="errorMessage" id="nomError">Veuillez entrer 2 caractères valides ou plus.</p><br>
+                <p class="errorMessage" id="nomError">Veuillez entrer 2 caractères valides ou plus.</p>
               </div>
               <div
                 class="formData">
@@ -97,7 +97,7 @@
                   id="email"
                   name="email"
                 /><br>
-                <p class="errorMessage" id="emailError">Saisissez un email valide.</p><br>
+                <p class="errorMessage" id="emailError">Saisissez un email valide.</p>
               </div>
               <div
                 class="formData">
@@ -109,10 +109,10 @@
                   name="birthdate"
                   onfocusout="return myForm.inputValidation('birthdate')"
                 /><br>
-                <p class="errorMessage" id="birthdateError">Saisissez une date valide.</p><br>
+                <p class="errorMessage" id="birthdateError">Saisissez une date valide.</p>
               </div>
               <div
-                class="formData">
+                class="formData formData-mg125">
                 <label for="quantity">À combien de tournois GameOn avez-vous déjà participé ?</label><br>
                 <input 
                 type="number" 
@@ -122,7 +122,7 @@
                 min="0" max="99" 
                 oninput="return myForm.inputValidation('tourney')">
                 <br>
-                <p class="errorMessage" id="tourneyError">Entrez un nombre de 0 à 99.</p><br>
+                <p class="errorMessage" id="tourneyError">Entrez un nombre de 0 à 99.</p>
               </div>
               <p class="text-label">A quel tournoi souhaitez-vous participer cette année ?</p>
               <div
@@ -193,7 +193,7 @@
                   <span class="checkbox-icon"></span>
                   Portland</label
                 ><br>
-                <p class="errorMessage" id="locationsError">Sélectionnez un tournoi.</p><br>
+                <p class="errorMessage" id="locationsError">Sélectionnez un tournoi.</p>
               </div>
 
               <div
@@ -209,7 +209,6 @@
                   <span class="checkbox-icon"></span>
                   J'ai lu et accepté les conditions d'utilisation.
                 </label>
-                <br>
                 <p class="errorMessage" id="conditionsError">Vous devez accepter les termes et conditions.</p>
 
                 <input class="checkbox-input" type="checkbox" id="checkbox2" />
@@ -235,7 +234,7 @@
         Copyright 2014 - 2022, GameOn Inc.
       </p>
     </footer>
-    <script src="modal.js"></script>
-    <script src="formHandler.js"></script>
+    <script src="modal.js" defer></script>
+    <script src="formHandler.js" defer></script>
   </body>
 </html>

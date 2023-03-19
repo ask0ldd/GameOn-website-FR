@@ -68,6 +68,14 @@ img {
   display: none;
 }
 
+.formData {
+  margin-bottom: 1rem;
+}
+
+.formData-mg125 {
+  margin-top: 1.5rem;
+}
+
 .formData .errorMessage {
   font-size: 12px;
   font-weight: 400px;
@@ -177,6 +185,7 @@ main {
   width: 100%;
   overflow: auto;
   background-color: rgba(26, 39, 156, 0.4);
+  /*flex-direction: column;*/
 }
 
 .content {

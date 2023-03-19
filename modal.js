@@ -18,6 +18,11 @@ closeBtn.addEventListener("click", () => {
   modalbg.style.display = "none"
 })
 
+// closing modal when clicking on bg
+modalbg.addEventListener("click", (event) => { 
+  if(event.target === modalbg) modalbg.style.display = "none"
+})
+
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 
