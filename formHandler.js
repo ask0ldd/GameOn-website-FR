@@ -1,12 +1,12 @@
 // class errorNode
-class errorMessageNode {
+class errorMessageNode { // gerer erreurs si nodes non existant
 
     constructor(nodeSelector) 
     {
         this.node = document.querySelector(nodeSelector)
     }
 
-    show() 
+    /*show() 
     { 
         this.node.style.display="block" 
     }
@@ -14,7 +14,39 @@ class errorMessageNode {
     hide() 
     { 
         this.node.style.display="none"
+    }*/
+
+    show = () => {
+        this.node.style.display="block"
     }
+
+    hide = () => {
+        this.node.style.display="none"
+    }
+}
+
+class formInputNode{
+    setStyletoNeutral
+    setStyletoError
+
+    constructor(inputSelector){ // gerer erreurs si input non existant
+        this.input = document.querySelector(inputSelector)
+        if(input.type === "text"){
+            setStyletoNeutral = () => {this.input.style.border="1x solid red"}
+            setStyletoError = () => {this.input.style.border="none"}
+        }
+    }
+
+}
+
+// class grouping an input and its related error node
+class error_InputCouple{
+
+    constructor(inputSelector, errorNodeSelector){
+        this.errorNode = new errorMessageNode(errorNodeSelector)
+        this.inputNode = new formInputNode(inputSelector)
+    }
+
 }
 
 // class form
@@ -82,7 +114,7 @@ class Form{
     }
 
     fullFormValidation(){
-        
+
     }
 }
 
