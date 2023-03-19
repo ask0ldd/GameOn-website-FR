@@ -26,19 +26,12 @@ class errorMessageNode { // gerer erreurs si nodes non existant
 }
 
 class formInputNode{
-    /*setStyletoNeutral
-    setStyletoError*/
-
     constructor(inputSelector){ // gerer erreurs si input non existant
         this.input = document.querySelector(inputSelector)
-        /*if(this.input.type === "text"){
-            setStyletoNeutral = () => {this.input.style.border="1x solid red"}
-            setStyletoError = () => {this.input.style.border="none"}
-        }*/
     }
 
     setStyletoError = () => {
-        this.input.style.border="1x solid red"
+        this.input.style.border="2px solid #FF4E60"
     }
     setStyletoNeutral = () => {
         this.input.style.border="none"
