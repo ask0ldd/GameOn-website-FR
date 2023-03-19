@@ -26,15 +26,22 @@ class errorMessageNode { // gerer erreurs si nodes non existant
 }
 
 class formInputNode{
-    setStyletoNeutral
-    setStyletoError
+    /*setStyletoNeutral
+    setStyletoError*/
 
     constructor(inputSelector){ // gerer erreurs si input non existant
         this.input = document.querySelector(inputSelector)
-        if(input.type === "text"){
+        /*if(this.input.type === "text"){
             setStyletoNeutral = () => {this.input.style.border="1x solid red"}
             setStyletoError = () => {this.input.style.border="none"}
-        }
+        }*/
+    }
+
+    setStyletoError = () => {
+        this.input.style.border="1x solid red"
+    }
+    setStyletoNeutral = () => {
+        this.input.style.border="none"
     }
 
 }
@@ -53,6 +60,14 @@ class error_InputCouple{
 class Form{
 
     constructor(){
+
+        this.inputNodes = {
+            'firstname' : new formInputNode('#first'),
+            'lastname' : new formInputNode('#last'),
+            'birthdate' : new formInputNode('#birthdate'),
+            'tourney' : new formInputNode('#quantity'),
+            'conditions' : new formInputNode('#checkbox1')
+        }
 
         // regroup all HTML error nodes references
         this.errorNodes = {
@@ -109,8 +124,16 @@ class Form{
         return false
     }
 
-    realtimeValidation(field){
-        this.validationFunctions[field]() === false ? this.errorNodes[field].show() : this.errorNodes[field].hide()
+    realtimeValidation(field){ // verifier que la key existe
+        if(this.validationFunctions[field]() === false) 
+        {
+            this.errorNodes[field].show()
+            this.inputNodes[field].setStyletoError()
+        } else
+        {
+            this.errorNodes[field].hide()
+            this.inputNodes[field].setStyletoNeutral()
+        }
     }
 
     fullFormValidation(){
