@@ -71,7 +71,7 @@
                   id="first"
                   name="first"
                   minlength="2"
-                  oninput="return myForm.realtimeValidation('firstname')"
+                  oninput="return myForm.realtimeInputValidation('firstname')"
                 /><br>
                 <p class="errorMessage" id="prenomError">Veuillez entrer 2 caractères valides ou plus.</p><br> <!-- changer message si nombre ou type de caracteres -->
               </div>
@@ -83,7 +83,7 @@
                   type="text"
                   id="last"
                   name="last"
-                  oninput="return myForm.realtimeValidation('lastname')"
+                  oninput="return myForm.realtimeInputValidation('lastname')"
                 /><br>
                 <p class="errorMessage" id="nomError">Veuillez entrer 2 caractères valides ou plus.</p><br>
               </div>
@@ -119,7 +119,7 @@
                 id="quantity" 
                 name="quantity" 
                 min="0" max="99" 
-                oninput="return myForm.realtimeValidation('tourney')">
+                oninput="return myForm.realtimeInputValidation('tourney')">
                 <br>
                 <p class="errorMessage" id="tourneyError">Entrez un nombre de 0 à 99.</p><br>
               </div>
@@ -204,7 +204,7 @@
                   checked
                 />
                 <label class="checkbox2-label" for="checkbox1" required
-                onclick="return myForm.realtimeValidation('conditions')">
+                onclick="return myForm.realtimeInputValidation('conditions')">
                   <span class="checkbox-icon"></span>
                   J'ai lu et accepté les conditions d'utilisation.
                 </label>

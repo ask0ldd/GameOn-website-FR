@@ -1,112 +1,30 @@
-// class errorNode
-class errorMessageNode { // gerer erreurs si nodes non existant
-
-    constructor(nodeSelector) 
-    {
-        this.node = document.querySelector(nodeSelector)
-    }
-
-    /*show() 
-    { 
-        this.node.style.display="block" 
-    }
-
-    hide() 
-    { 
-        this.node.style.display="none"
-    }*/
-
-    show = () => {
-        this.node.style.display="block"
-    }
-
-    hide = () => {
-        this.node.style.display="none"
-    }
-}
-
-class formInputNode{
-    constructor(inputSelector){ // gerer erreurs si input non existant
-        this.input = document.querySelector(inputSelector)
-    }
-
-    setStyletoError = () => {
-        this.input.style.border="2px solid #FF4E60"
-    }
-    setStyletoNeutral = () => {
-        this.input.style.border="none"
-    }
-
-}
-
-// class grouping an input and its related error node
-class error_InputCouple{
-
-    constructor(inputSelector, errorNodeSelector){
-        this.errorNode = new errorMessageNode(errorNodeSelector)
-        this.inputNode = new formInputNode(inputSelector)
-    }
-
-}
-
-// class form
-class Form{
-
-    constructor(){
-
-        this.inputNodes = {
-            'firstname' : new formInputNode('#first'),
-            'lastname' : new formInputNode('#last'),
-            'birthdate' : new formInputNode('#birthdate'),
-            'tourney' : new formInputNode('#quantity'),
-            'conditions' : new formInputNode('#checkbox1')
-        }
-
-        // regroup all HTML error nodes references
-        this.errorNodes = {
-            'firstname' : new errorMessageNode('#prenomError'),
-            'lastname' : new errorMessageNode('#nomError'),
-            'birthdate' : new errorMessageNode('#birthdateError'),
-            'tourney' : new errorMessageNode('#tourneyError'),
-            'locations' : new errorMessageNode('#locationsError'),
-            'conditions' : new errorMessageNode('#conditionsError')
-        }
-
-        // linking each form input to the its validation function
-        this.validationFunctions = {
-            'firstname' : () => this.isName('#first'),
-            'lastname' : () => this.isName('#last'),
-            'birthdate' : () => this.isDate('#birthdate'),
-            'tourney' : () => this.isBetween_0_and_99('#quantity'),
-            'locations' : () => this.isOneLocationChecked('location'),
-            'conditions' : () => !document.querySelector('#checkbox1').checked
-        }
-    }
+// helper regrouping validating methods
+class Validators {
 
     // is the passed field value a name ?
-    isName(fieldId){
+    static isName(fieldId){
         const fieldValue = document.querySelector(fieldId).value.trim()
         const nameRegex =  new RegExp ("^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,}$")
         return nameRegex.test(fieldValue)
     }
 
     // is the passed field value a number between 0 & 99 ?
-    isBetween_0_and_99(fieldId){
+    static isBetween_0_and_99(fieldId){
         const fieldValue = document.querySelector(fieldId).value.trim()
         const numberRegex = new RegExp ("^[0-9]{1,2}$")
         return numberRegex.test(fieldValue)
     }
 
     // is the passed field value a date ?
-    isDate(fieldId){
+    static isDate(fieldId){
         const fieldValue = document.querySelector(fieldId).value.trim()
         const dateRegex = new RegExp("^[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}$")
         return dateRegex.test(fieldValue)
     }
 
     // is one of the radio buttons selected ?
-    isOneLocationChecked(radiosName){
-        const radios = document.getElementsByName(fieldsName)
+    static isOneRadioChecked(radiosName){
+        const radios = document.getElementsByName(radiosName)
 
         for (const radio of radios) {
             if (radio.checked === true) {
@@ -116,16 +34,105 @@ class Form{
 
         return false
     }
+}
 
-    realtimeValidation(field){ // verifier que la key existe
-        if(this.validationFunctions[field]() === false) 
-        {
-            this.errorNodes[field].show()
-            this.inputNodes[field].setStyletoError()
+// class errorNode
+class ErrorNode { // gerer erreurs si nodes non existant
+
+    constructor(nodeSelector) 
+    {
+        this.node = document.querySelector(nodeSelector)
+    }
+
+    set display(bool){
+        bool ? this.node.style.display="block" : this.node.style.display="none"
+    }
+
+    set message(message){
+        this.message = message
+    }
+}
+
+class FormInput{
+    inputNode // the node of the input
+    errorNode // the node of the error message
+    inputSelector //
+    validationRules = []
+
+    constructor(inputSelector){
+        this.inputSelector = inputSelector
+        this.inputNode = document.querySelector(inputSelector) // gerer erreurs si input non existant
+        /*if(errorNodeSelector) this.addErrorNode(errorNodeSelector)*/
+    }
+    
+    set errorMode(bool){
+        if(bool){
+            this.style='error'
+            if(this.errorNode) this.errorNode.display=true
+        }else{
+            this.style='neutral'
+            if(this.errorNode) this.errorNode.display=false
+        }
+    }
+
+    set style(style){ // style can be neutral or error
+        style === 'error' ? this.inputNode.style.border="2px solid #FF4E60" : this.inputNode.style.border="none"
+    }
+
+    setErrorNode(errorNodeSelector){
+        this.errorNode = new ErrorNode(errorNodeSelector)
+    }
+
+    addValidationRule(fct){
+        this.validationRules.push(fct)
+    }
+}
+
+// class form
+class Form{
+
+    constructor(){
+
+        this.inputs = {
+            'firstname' : new FormInput('#first'), // deal with non existing node
+            'lastname' : new FormInput('#last'),
+            'birthdate' : new FormInput('#birthdate'),
+            'tourney' : new FormInput('#quantity'),
+            'conditions' : new FormInput('#checkbox1')
+        }
+
+        this.pairErrorNodesWithRelatedInputs()
+        this.addValidationRulesToInputs()
+    }
+
+    pairErrorNodesWithRelatedInputs(){
+        this.inputs['firstname']?.setErrorNode('#prenomError')
+        this.inputs['lastname']?.setErrorNode('#nomError')
+        this.inputs['birthdate']?.setErrorNode('#birthdateError')
+        this.inputs['tourney']?.setErrorNode('#tourneyError')
+        this.inputs['conditions']?.setErrorNode('#conditionsError')
+    }
+
+    addValidationRulesToInputs(){
+        this.inputs['firstname']?.addValidationRule((inputSelector) => Validators.isName('#first'))
+        this.inputs['lastname']?.addValidationRule((inputSelector) => Validators.isName('#last'))
+        this.inputs['birthdate']?.addValidationRule((inputSelector) => Validators.isDate('#birthdate'))
+        this.inputs['tourney']?.addValidationRule((inputSelector) => Validators.isBetween_0_and_99('#quantity'))
+        this.inputs['locations']?.addValidationRule((inputSelector) => Validators.isOneRadioChecked('location'))
+        this.inputs['conditions']?.addValidationRule((inputSelector) => !document.querySelector('#checkbox1').checked)
+    }
+
+    realtimeInputValidation(field){
+
+        const isValidationSuccessful = this.inputs[field]?.validationRules.reduce((accu, current) => {
+            return (accu === false || current() === false) ? false : true
+        }, true)
+
+        if(isValidationSuccessful === false){
+            this.inputs[field].errorMode = true
         } else
         {
-            this.errorNodes[field].hide()
-            this.inputNodes[field].setStyletoNeutral()
+            this.inputs[field].errorMode = false
         }
     }
 
