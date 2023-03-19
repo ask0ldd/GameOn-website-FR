@@ -34,6 +34,11 @@ class Validators {
 
         return false
     }
+
+    static isBoxChecked(checkBoxId){
+        // happens before the update of the checkbox, so inversion needed
+        return !document.querySelector(checkBoxId).checked
+    }
 }
 
 // class errorNode
@@ -83,15 +88,17 @@ class FormInput{
         this.errorNode = new ErrorNode(errorNodeSelector)
     }
 
-    addValidationRule(fct){
-        this.validationRules.push(fct)
+    addValidationRule(fn){
+        this.validationRules.push(fn)
     }
 }
 
 // class form
 class Form{
 
-    constructor(){
+    constructor(formSelector){
+
+        // this.formNode = document.querySelector(formSelector)
 
         this.inputs = {
             'firstname' : new FormInput('#first'), // deal with non existing node
@@ -119,10 +126,10 @@ class Form{
         this.inputs['birthdate']?.addValidationRule((inputSelector) => Validators.isDate('#birthdate'))
         this.inputs['tourney']?.addValidationRule((inputSelector) => Validators.isBetween_0_and_99('#quantity'))
         this.inputs['locations']?.addValidationRule((inputSelector) => Validators.isOneRadioChecked('location'))
-        this.inputs['conditions']?.addValidationRule((inputSelector) => !document.querySelector('#checkbox1').checked)
+        this.inputs['conditions']?.addValidationRule((inputSelector) => Validators.isBoxChecked('#checkbox1'))
     }
 
-    realtimeInputValidation(field){
+    inputValidation(field){
 
         const isValidationSuccessful = this.inputs[field]?.validationRules.reduce((accu, current) => {
             return (accu === false || current() === false) ? false : true
@@ -136,9 +143,10 @@ class Form{
         }
     }
 
-    fullFormValidation(){
-
+    formValidation(){
+        // preventdefault
+        return false
     }
 }
 
-const myForm = new Form()
+const myForm = new Form("#reserve")
