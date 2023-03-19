@@ -36,8 +36,7 @@ class Validators {
     }
 
     static isBoxChecked(checkBoxId){
-        // happens before the update of the checkbox, so inversion needed
-        return !document.querySelector(checkBoxId).checked
+        return document.querySelector(checkBoxId).checked
     }
 }
 
@@ -64,10 +63,9 @@ class FormInput{
     inputSelector //
     validationRules = []
 
-    constructor(inputSelector){
+    constructor(inputSelector){ // gerer erreurs si input non existant
         this.inputSelector = inputSelector
-        this.inputNode = document.querySelector(inputSelector) // gerer erreurs si input non existant
-        /*if(errorNodeSelector) this.addErrorNode(errorNodeSelector)*/
+        this.inputNode = document.querySelector(inputSelector) 
     }
     
     set errorMode(bool){
@@ -84,7 +82,7 @@ class FormInput{
         style === 'error' ? this.inputNode.style.border="2px solid #FF4E60" : this.inputNode.style.border="none"
     }
 
-    setErrorNode(errorNodeSelector){
+    bindErrorNode(errorNodeSelector){
         this.errorNode = new ErrorNode(errorNodeSelector)
     }
 
@@ -105,19 +103,21 @@ class Form{
             'lastname' : new FormInput('#last'),
             'birthdate' : new FormInput('#birthdate'),
             'tourney' : new FormInput('#quantity'),
+            'locations' : new FormInput('#location1'), // devrait etre recupere via name via querySelectorAll
             'conditions' : new FormInput('#checkbox1')
         }
 
-        this.pairErrorNodesWithRelatedInputs()
+        this.bindErrorNodestoRelatedInputs()
         this.addValidationRulesToInputs()
     }
 
-    pairErrorNodesWithRelatedInputs(){
-        this.inputs['firstname']?.setErrorNode('#prenomError')
-        this.inputs['lastname']?.setErrorNode('#nomError')
-        this.inputs['birthdate']?.setErrorNode('#birthdateError')
-        this.inputs['tourney']?.setErrorNode('#tourneyError')
-        this.inputs['conditions']?.setErrorNode('#conditionsError')
+    bindErrorNodestoRelatedInputs(){
+        this.inputs['firstname']?.bindErrorNode('#prenomError')
+        this.inputs['lastname']?.bindErrorNode('#nomError')
+        this.inputs['birthdate']?.bindErrorNode('#birthdateError')
+        this.inputs['tourney']?.bindErrorNode('#tourneyError')
+        this.inputs['locations']?.bindErrorNode('#locationsError')
+        this.inputs['conditions']?.bindErrorNode('#conditionsError')
     }
 
     addValidationRulesToInputs(){
@@ -143,8 +143,11 @@ class Form{
         }
     }
 
-    formValidation(){
+    fullValidation(){
         // preventdefault
+        for (const key in this.inputs){
+            this.inputValidation(key)
+        }
         return false
     }
 }

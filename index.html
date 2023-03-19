@@ -61,7 +61,7 @@
               id="reserve"
               action="index.html"
               method="get"
-              onsubmit="return formValidation()"
+              onsubmit="return myForm.fullValidation()"
             >
               <div
                 class="formData">
@@ -203,9 +203,9 @@
                   type="checkbox"
                   id="checkbox1"
                   checked
+                  onchange="return myForm.inputValidation('conditions')"
                 />
-                <label class="checkbox2-label" for="checkbox1" required
-                onclick="return myForm.inputValidation('conditions')">
+                <label class="checkbox2-label" for="checkbox1" required>
                   <span class="checkbox-icon"></span>
                   J'ai lu et accepté les conditions d'utilisation.
                 </label>
