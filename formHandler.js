@@ -96,7 +96,7 @@ class Form{
 
     constructor(formSelector){
 
-        // this.formNode = document.querySelector(formSelector)
+        this.formNode = document.querySelector(formSelector)
 
         this.inputs = {
             'firstname' : new FormInput('#first'), // deal with non existing node
@@ -121,12 +121,12 @@ class Form{
     }
 
     addValidationRulesToInputs(){
-        this.inputs['firstname']?.addValidationRule((inputSelector) => Validators.isName('#first'))
-        this.inputs['lastname']?.addValidationRule((inputSelector) => Validators.isName('#last'))
-        this.inputs['birthdate']?.addValidationRule((inputSelector) => Validators.isDate('#birthdate'))
-        this.inputs['tourney']?.addValidationRule((inputSelector) => Validators.isBetween_0_and_99('#quantity'))
-        this.inputs['locations']?.addValidationRule((inputSelector) => Validators.isOneRadioChecked('location'))
-        this.inputs['conditions']?.addValidationRule((inputSelector) => Validators.isBoxChecked('#checkbox1'))
+        this.inputs['firstname']?.addValidationRule((selector) => Validators.isName('#first'))
+        this.inputs['lastname']?.addValidationRule((selector) => Validators.isName('#last'))
+        this.inputs['birthdate']?.addValidationRule((selector) => Validators.isDate('#birthdate'))
+        this.inputs['tourney']?.addValidationRule((selector) => Validators.isBetween_0_and_99('#quantity'))
+        this.inputs['locations']?.addValidationRule((selector) => Validators.isOneRadioChecked('location'))
+        this.inputs['conditions']?.addValidationRule((selector) => Validators.isBoxChecked('#checkbox1'))
     }
 
     inputValidation(field){
