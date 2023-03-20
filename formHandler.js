@@ -28,7 +28,7 @@ class Validators {
         const radios = document.getElementsByName(radiosName)
 
         for (const radio of radios) {
-            if (radio.checked === true) {
+            if (radio.checked) {
                 return true
             }
         }
@@ -72,9 +72,11 @@ class FormInput{
         if(bool){
             this.style='error'
             if(this.errorNode) this.errorNode.display=true
+            //this.errorNode?.display=true
         }else{
             this.style='neutral'
             if(this.errorNode) this.errorNode.display=false
+            //this.errorNode?.display=false
         }
     }
 
@@ -146,17 +148,23 @@ class Form{
         {
             this.inputs[field].errorMode = false
         }
+
+        return isValidationSuccessful
     }
 
     // called when form submitted
     fullFormValidation(){
-        // preventdefault
-        for (const key in this.inputs){
-            this.inputValidation(key)
-        }
-        return false
 
+        let isFormValidationSuccessful = true
+        for (const key in this.inputs){
+            const inputValidation =  this.inputValidation(key)
+            if(inputValidation === false) isFormValidationSuccessful = false
+        }
         
+        if(isFormValidationSuccessful === false) return false
+
+        console.log('success')
+
     }
 }
 
