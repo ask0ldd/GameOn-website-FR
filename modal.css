@@ -202,6 +202,27 @@ main {
   padding-top: 10px;
 }
 
+.content-validation {
+  display: flex;
+  margin: 5% auto;
+  flex-direction: column;
+  width: 100%;
+  max-width: 500px;
+  background: #232323;
+  border-radius: 10px;
+  color: #fff;
+  padding: 20px 0;
+  font-weight: 400;
+  font-size: 38px;
+  position: relative;
+}
+
+.validation-txt {
+  max-width: 290px;
+  margin: 320px auto;
+  text-align: center;
+}
+
 .modal-body {
   padding: 15px 8%;
   margin: 15px auto;

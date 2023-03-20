@@ -16,6 +16,7 @@ const formData = document.querySelectorAll(".formData");
 const closeBtn = document.querySelector(".close");
 closeBtn.addEventListener("click", () => { 
   modalbg.style.display = "none"
+  // TODO : set form visible / set confirmation window hidden
 })
 
 // closing modal when clicking on bg
