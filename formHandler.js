@@ -121,7 +121,7 @@ class Form{
 
         this.formNode = document.querySelector(formSelector)
 
-        // instantiate the inputs which are parts of the form
+        // instantiate the references to the form inputs
         this.inputs = {
             'firstname' : new FormInput('#first'), // TODO : deal with non existing node
             'lastname' : new FormInput('#last'),
@@ -136,7 +136,7 @@ class Form{
         this.addValidationRulesToInputs()
     }
 
-    // binds all the right error nodes to the right inputs 
+    // pairing the right error nodes with the right inputs 
     bindErrorNodestoRelatedInputs(){
         this.inputs['firstname']?.bindErrorNode('#prenomError')
         this.inputs['lastname']?.bindErrorNode('#nomError')
@@ -147,7 +147,7 @@ class Form{
         this.inputs['conditions']?.bindErrorNode('#conditionsError')
     }
 
-    // set for each input the right validation rules
+    // set the right validation rules for each input
     addValidationRulesToInputs(){
         this.inputs['firstname']?.addValidationRule(() => Validators.isName(this.inputs['firstname'].inputNode)) // TODO : should pass this.inputs['firstname'].inputNode instead
         this.inputs['lastname']?.addValidationRule(() => Validators.isName(this.inputs['lastname'].inputNode)) // TODO : get rid of selector if no use is made of it
