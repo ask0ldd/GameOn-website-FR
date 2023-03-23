@@ -24,7 +24,7 @@ class Validators {
 
     static isEmail(inputNode){
         const inputValue = inputNode.value.trim()
-        const emailRegex = new RegExp("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$")
+        const emailRegex = new RegExp("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$")
         return emailRegex.test(inputValue)
     }
 
