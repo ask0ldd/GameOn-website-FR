@@ -1,5 +1,5 @@
 // helper : grouping all validation fn
-// TODO : still need to add the email validation method
+// TODO : still need to add the email validation fn
 class Validators {
 
     // is the input value a name ?
