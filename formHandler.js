@@ -1,4 +1,5 @@
-// helper grouping validating methods
+// helper grouping all validation methods
+// TODO : still need to add the email validation method
 class Validators {
 
     // is the input value a name ?
@@ -19,7 +20,7 @@ class Validators {
     static isDate(fieldId){
         const fieldValue = document.querySelector(fieldId).value.trim()
         const dateRegex = new RegExp("^[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}$")
-        // !!! if date > current date
+        // !!! TODO check if date > current date // should trigger a different message or invalid date is enough?
         return dateRegex.test(fieldValue)
     }
 
@@ -41,8 +42,9 @@ class Validators {
     }
 }
 
-// class errorNode
-class ErrorNode { // gerer erreurs si nodes non existant
+// a representation of a error message container which is hard coded into the HTML file
+// TODO : should extends the Node class instead?
+class ErrorNode { // TODO : deal with non existing node
 
     constructor(nodeSelector) 
     {
@@ -58,33 +60,35 @@ class ErrorNode { // gerer erreurs si nodes non existant
     }
 }
 
+// a representation of a form input coded into the HTML file
+// TODO : should extends Node class instead?
 class FormInput{
 
+    // validation rules that this input must pass to not trigger an error on submit
     validationRules = []
 
-    constructor(inputSelector){ // gerer erreurs si input non existant
+    constructor(inputSelector){ // TODO : deal with non existing input
         this.inputSelector = inputSelector
         this.inputNode = document.querySelector(inputSelector) 
     }
     
-    // if true : input highlighted + error message displayed
+    // switch an input to error mode : input style set to error + error node set to visible
     set errorMode(bool){
         if(bool){
             this.style='error'
             if(this.errorNode) this.errorNode.display=true
-            //this.errorNode?.display=true
         }else{
             this.style='neutral'
             if(this.errorNode) this.errorNode.display=false
-            //this.errorNode?.display=false
         }
     }
 
-    // values allowed for style : 'neutral' || 'error'
+    // set a style for the input. allowed values : 'neutral' || 'error'. 'neutral' by default.
     set style(style){
         style === 'error' ? this.inputNode.style.border="2px solid #FF4E60" : this.inputNode.style.border="none"
     }
 
+    // used to bind a specific error node to an input
     bindErrorNode(errorNodeSelector){
         this.errorNode = new ErrorNode(errorNodeSelector)
     }
@@ -94,13 +98,14 @@ class FormInput{
     }
 }
 
-// class form
+// a representation of the main form
 class Form{
 
     constructor(formSelector){
 
         this.formNode = document.querySelector(formSelector)
 
+        // instantiate the inputs which are parts of the form
         this.inputs = {
             'firstname' : new FormInput('#first'), // !!! deal with non existing node
             'lastname' : new FormInput('#last'),
@@ -114,7 +119,7 @@ class Form{
         this.addValidationRulesToInputs()
     }
 
-    // binds the right error nodes to the right inputs 
+    // binds all the right error nodes to the right inputs 
     bindErrorNodestoRelatedInputs(){
         this.inputs['firstname']?.bindErrorNode('#prenomError')
         this.inputs['lastname']?.bindErrorNode('#nomError')
@@ -124,7 +129,7 @@ class Form{
         this.inputs['conditions']?.bindErrorNode('#conditionsError')
     }
 
-    // gives each input its validation rules
+    // set for each input the right validation rules
     addValidationRulesToInputs(){
         this.inputs['firstname']?.addValidationRule((selector) => Validators.isName('#first')) // dependancy injection ?
         this.inputs['lastname']?.addValidationRule((selector) => Validators.isName('#last'))
@@ -134,14 +139,14 @@ class Form{
         this.inputs['conditions']?.addValidationRule((selector) => Validators.isBoxChecked('#checkbox1'))
     }
 
-    // called for realtime validation (onchange / oninput)
+    // called at realtime validation (onchange / oninput)
     inputValidation(field){
         // check if the input is passing all associated validation rules
         const isValidationSuccessful = this.inputs[field]?.validationRules.reduce((accu, current) => {
             return (accu === false || current() === false) ? false : true
         }, true)
 
-        // if not, input is switching to errorMode
+        // if not, the input is switching to errorMode
         if(isValidationSuccessful === false){
             this.inputs[field].errorMode = true
         } else
@@ -152,7 +157,7 @@ class Form{
         return isValidationSuccessful
     }
 
-    // called when form submitted
+    // called when the form submitted
     fullFormValidation(){
 
         let isFormValidationSuccessful = true
