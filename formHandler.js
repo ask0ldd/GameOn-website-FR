@@ -2,29 +2,32 @@
 // TODO : still need to add the email validation fn
 class Validators {
 
-    // is the input value a name ?
-    static isName(fieldId){
-        const fieldValue = document.querySelector(fieldId).value.trim()
+    static isName(inputNode){
+        //const fieldValue = document.querySelector(fieldId).value.trim()
+        const inputValue = inputNode.value.trim()
         const nameRegex =  new RegExp ("^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,}$")
-        return nameRegex.test(fieldValue)
+        return nameRegex.test(inputValue)
     }
 
-    // is the input value a number between 0 & 99 ?
-    static isBetween_0_and_99(fieldId){
-        const fieldValue = document.querySelector(fieldId).value.trim()
+    static isBetween_0_and_99(inputNode){
+        const inputValue = inputNode.value.trim()
         const numberRegex = new RegExp ("^[0-9]{1,2}$")
-        return numberRegex.test(fieldValue)
+        return numberRegex.test(inputValue)
     }
 
-    // is the input value a date ?
-    static isDate(fieldId){
-        const fieldValue = document.querySelector(fieldId).value.trim()
+    static isDate(inputNode){
+        const inputValue = inputNode.value.trim()
         const dateRegex = new RegExp("^[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}$")
         // !!! TODO check if date > current date // should trigger a different message or invalid date is enough?
-        return dateRegex.test(fieldValue)
+        return dateRegex.test(inputValue)
     }
 
-    // is one of the related radio buttons selected ?
+    static isEmail(inputNode){
+        const inputValue = inputNode.value.trim()
+        const emailRegex = new RegExp("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$")
+        return emailRegex.test(inputValue)
+    }
+
     static isOneRadioChecked(radiosName){
         const radios = document.getElementsByName(radiosName)
 
@@ -37,8 +40,8 @@ class Validators {
         return false
     }
 
-    static isBoxChecked(checkBoxId){
-        return document.querySelector(checkBoxId).checked
+    static isBoxChecked(inputNode){
+        return inputNode.checked
     }
 }
 
@@ -71,11 +74,12 @@ class ErrorNode {
 // can receive validation rules which will be triggered on input || on submit.
 class FormInput{
 
+    #inputNode
     validationRules = []
 
     constructor(inputSelector){ // TODO : deal with non existing input
         this.inputSelector = inputSelector
-        this.inputNode = document.querySelector(inputSelector) 
+        this.#inputNode = document.querySelector(inputSelector) 
     }
     
     // self switching to error mode : style() + displaying related error node
@@ -89,9 +93,13 @@ class FormInput{
         }
     }
 
+    get inputNode(){
+        return this.#inputNode
+    }
+
     // set a style for the input. allowed values : 'error' || 'neutral' by default.
     set style(style){
-        style === 'error' ? this.inputNode.style.border="2px solid #FF4E60" : this.inputNode.style.border="none"
+        style === 'error' ? this.#inputNode.style.border="2px solid #FF4E60" : this.#inputNode.style.border="none"
     }
 
     bindErrorNode(errorNodeSelector){
@@ -117,6 +125,7 @@ class Form{
         this.inputs = {
             'firstname' : new FormInput('#first'), // TODO : deal with non existing node
             'lastname' : new FormInput('#last'),
+            'email' : new FormInput('#email'),
             'birthdate' : new FormInput('#birthdate'),
             'tourney' : new FormInput('#quantity'),
             'locations' : new FormInput('#location1'), // TODO : should be acquired through querySelectorAll (on name)
@@ -131,6 +140,7 @@ class Form{
     bindErrorNodestoRelatedInputs(){
         this.inputs['firstname']?.bindErrorNode('#prenomError')
         this.inputs['lastname']?.bindErrorNode('#nomError')
+        this.inputs['email']?.bindErrorNode('#emailError')
         this.inputs['birthdate']?.bindErrorNode('#birthdateError')
         this.inputs['tourney']?.bindErrorNode('#tourneyError')
         this.inputs['locations']?.bindErrorNode('#locationsError')
@@ -139,12 +149,13 @@ class Form{
 
     // set for each input the right validation rules
     addValidationRulesToInputs(){
-        this.inputs['firstname']?.addValidationRule((selector) => Validators.isName('#first')) // TODO : dangerous injection ?
-        this.inputs['lastname']?.addValidationRule((selector) => Validators.isName('#last')) // TODO : get rid of selector if no use is made of it
-        this.inputs['birthdate']?.addValidationRule((selector) => Validators.isDate('#birthdate'))
-        this.inputs['tourney']?.addValidationRule((selector) => Validators.isBetween_0_and_99('#quantity'))
-        this.inputs['locations']?.addValidationRule((selector) => Validators.isOneRadioChecked('location'))
-        this.inputs['conditions']?.addValidationRule((selector) => Validators.isBoxChecked('#checkbox1'))
+        this.inputs['firstname']?.addValidationRule(() => Validators.isName(this.inputs['firstname'].inputNode)) // TODO : should pass this.inputs['firstname'].inputNode instead
+        this.inputs['lastname']?.addValidationRule(() => Validators.isName(this.inputs['lastname'].inputNode)) // TODO : get rid of selector if no use is made of it
+        this.inputs['email']?.addValidationRule(() => Validators.isEmail(this.inputs['email'].inputNode))
+        this.inputs['birthdate']?.addValidationRule(() => Validators.isDate(this.inputs['birthdate'].inputNode))
+        this.inputs['tourney']?.addValidationRule(() => Validators.isBetween_0_and_99(this.inputs['tourney'].inputNode))
+        this.inputs['locations']?.addValidationRule(() => Validators.isOneRadioChecked('location'))
+        this.inputs['conditions']?.addValidationRule(() => Validators.isBoxChecked(this.inputs['conditions'].inputNode))
     }
 
     // called to realtime validate an input (onchange / oninput)
