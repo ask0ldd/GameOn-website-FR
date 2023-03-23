@@ -1,4 +1,4 @@
-// helper grouping all validation methods
+// helper : grouping all validation fn
 // TODO : still need to add the email validation method
 class Validators {
 
@@ -42,12 +42,12 @@ class Validators {
     }
 }
 
-// a representation of a error message container which is hard coded into the HTML file
-// TODO : should extends the Node class instead?
-class ErrorNode { // TODO : deal with non existing node
+// a reference to some DOM node containing a message error
+class ErrorNode { 
 
     constructor(nodeSelector) 
     {
+        // TODO : deal with non existing node
         this.node = document.querySelector(nodeSelector)
     }
 
@@ -60,11 +60,11 @@ class ErrorNode { // TODO : deal with non existing node
     }
 }
 
-// a representation of a form input coded into the HTML file
-// TODO : should extends Node class instead?
+// a reference to some DOM form input node. 
+// can be binded to some error node. 
+// can receive validation rules which will be triggered on input || on submit.
 class FormInput{
 
-    // validation rules that this input must pass to not trigger an error on submit
     validationRules = []
 
     constructor(inputSelector){ // TODO : deal with non existing input
@@ -72,7 +72,7 @@ class FormInput{
         this.inputNode = document.querySelector(inputSelector) 
     }
     
-    // switch an input to error mode : input style set to error + error node set to visible
+    // self switching to error mode : style() + displaying related error node
     set errorMode(bool){
         if(bool){
             this.style='error'
@@ -83,12 +83,11 @@ class FormInput{
         }
     }
 
-    // set a style for the input. allowed values : 'neutral' || 'error'. 'neutral' by default.
+    // set a style for the input. allowed values : 'error' || 'neutral' by default.
     set style(style){
         style === 'error' ? this.inputNode.style.border="2px solid #FF4E60" : this.inputNode.style.border="none"
     }
 
-    // used to bind a specific error node to an input
     bindErrorNode(errorNodeSelector){
         this.errorNode = new ErrorNode(errorNodeSelector)
     }
@@ -98,7 +97,7 @@ class FormInput{
     }
 }
 
-// a representation of the main form
+// a reference to the HTML form
 class Form{
 
     constructor(formSelector){
@@ -107,11 +106,11 @@ class Form{
 
         // instantiate the inputs which are parts of the form
         this.inputs = {
-            'firstname' : new FormInput('#first'), // !!! deal with non existing node
+            'firstname' : new FormInput('#first'), // TODO : deal with non existing node
             'lastname' : new FormInput('#last'),
             'birthdate' : new FormInput('#birthdate'),
             'tourney' : new FormInput('#quantity'),
-            'locations' : new FormInput('#location1'), // !!! devrait etre recupere via name via querySelectorAll
+            'locations' : new FormInput('#location1'), // TODO : should be acquired through querySelectorAll on name
             'conditions' : new FormInput('#checkbox1')
         }
 
@@ -131,7 +130,7 @@ class Form{
 
     // set for each input the right validation rules
     addValidationRulesToInputs(){
-        this.inputs['firstname']?.addValidationRule((selector) => Validators.isName('#first')) // dependancy injection ?
+        this.inputs['firstname']?.addValidationRule((selector) => Validators.isName('#first')) // TODO : dangerous injection ?
         this.inputs['lastname']?.addValidationRule((selector) => Validators.isName('#last'))
         this.inputs['birthdate']?.addValidationRule((selector) => Validators.isDate('#birthdate'))
         this.inputs['tourney']?.addValidationRule((selector) => Validators.isBetween_0_and_99('#quantity'))
@@ -139,14 +138,13 @@ class Form{
         this.inputs['conditions']?.addValidationRule((selector) => Validators.isBoxChecked('#checkbox1'))
     }
 
-    // called at realtime validation (onchange / oninput)
+    // called to realtime validate an input (onchange / oninput)
     inputValidation(field){
-        // check if the input is passing all associated validation rules
         const isValidationSuccessful = this.inputs[field]?.validationRules.reduce((accu, current) => {
             return (accu === false || current() === false) ? false : true
         }, true)
 
-        // if not, the input is switching to errorMode
+        // if validation fails, the input is switching to errorMode
         if(isValidationSuccessful === false){
             this.inputs[field].errorMode = true
         } else
@@ -169,7 +167,6 @@ class Form{
         if(isFormValidationSuccessful === false) return false
 
         console.log('success')
-
     }
 }
 
