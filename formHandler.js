@@ -45,7 +45,7 @@ class Validators {
 
 
 //
-// a reference to some DOM node containing a message error
+// a reference to some DOM error message node
 //
 class ErrorNode { 
 
@@ -119,7 +119,7 @@ class Form{
             'lastname' : new FormInput('#last'),
             'birthdate' : new FormInput('#birthdate'),
             'tourney' : new FormInput('#quantity'),
-            'locations' : new FormInput('#location1'), // TODO : should be acquired through querySelectorAll on name
+            'locations' : new FormInput('#location1'), // TODO : should be acquired through querySelectorAll (on name)
             'conditions' : new FormInput('#checkbox1')
         }
 
@@ -140,7 +140,7 @@ class Form{
     // set for each input the right validation rules
     addValidationRulesToInputs(){
         this.inputs['firstname']?.addValidationRule((selector) => Validators.isName('#first')) // TODO : dangerous injection ?
-        this.inputs['lastname']?.addValidationRule((selector) => Validators.isName('#last'))
+        this.inputs['lastname']?.addValidationRule((selector) => Validators.isName('#last')) // TODO : get rid of selector if no use is made of it
         this.inputs['birthdate']?.addValidationRule((selector) => Validators.isDate('#birthdate'))
         this.inputs['tourney']?.addValidationRule((selector) => Validators.isBetween_0_and_99('#quantity'))
         this.inputs['locations']?.addValidationRule((selector) => Validators.isOneRadioChecked('location'))
@@ -164,7 +164,7 @@ class Form{
         return isValidationSuccessful
     }
 
-    // called when the form submitted
+    // called when the form is submitted
     fullFormValidation(){
 
         let isFormValidationSuccessful = true
