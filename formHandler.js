@@ -42,7 +42,11 @@ class Validators {
     }
 }
 
+
+
+//
 // a reference to some DOM node containing a message error
+//
 class ErrorNode { 
 
     constructor(nodeSelector) 
@@ -59,6 +63,8 @@ class ErrorNode {
         this.message = message
     }
 }
+
+
 
 // a reference to some DOM form input node. 
 // can be binded to some error node. 
@@ -97,7 +103,10 @@ class FormInput{
     }
 }
 
+
+//
 // a reference to the HTML form
+//
 class Form{
 
     constructor(formSelector){
