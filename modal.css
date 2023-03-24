@@ -202,8 +202,8 @@ main {
   padding-top: 10px;
 }
 
-.content-validation {
-  display: flex;
+.content-success {
+  display: none;
   margin: 5% auto;
   flex-direction: column;
   width: 100%;
@@ -217,7 +217,7 @@ main {
   position: relative;
 }
 
-.validation-txt {
+.success-txt {
   max-width: 290px;
   margin: 320px auto;
   text-align: center;

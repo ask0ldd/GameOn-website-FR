@@ -187,7 +187,8 @@ class Form{
         
         if(isFormValidationSuccessful === false) return false
 
-        console.log('success')
+        switchModalContent()
+        return false // return false despite validation successfull so the form isn't submitted
     }
 }
 

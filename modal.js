@@ -8,28 +8,39 @@ function editNav() {
 }
 
 // DOM Elements
-const modalbg = document.querySelector(".bground");
-const modalBtn = document.querySelectorAll(".modal-btn");
-const formData = document.querySelectorAll(".formData");
+const modaleNode = document.querySelector(".bground");
+const modalBtn = document.querySelectorAll(".modal-btn")
+const formData = document.querySelector(".formData")
+const successBody = document.querySelector("#success-modalbody")
+const formBody = document.querySelector("#form-modalbody")
 
-// closing modal
-const closeBtn = document.querySelector(".close");
-closeBtn.addEventListener("click", () => { 
-  modalbg.style.display = "none"
-  // TODO : set form visible / set confirmation window hidden
+// modal closing
+const closeBtn = document.querySelectorAll(".close")
+const successCloseBtn = document.querySelector("#success-close")
+// when the x buttons are clicked
+closeBtn.forEach((btn) => btn.addEventListener("click", closeModal))
+// when "fermer" is clicked
+successCloseBtn.addEventListener("click", closeModal)
+// when clicking on the backdrop
+modaleNode.addEventListener("click", (event) => { 
+  if(event.target === modaleNode) closeModal()
 })
 
-// closing modal when clicking on bg
-modalbg.addEventListener("click", (event) => { 
-  if(event.target === modalbg) modalbg.style.display = "none"
-})
-
-// launch modal event
-modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
-
-// launch modal form
-function launchModal() {
-  modalbg.style.display = "block";
+function closeModal(){
+  formBody.style.display="block"
+  successBody.style.display="none"
+  // TODO : emptying form
+  modaleNode.style.display = "none"
 }
 
-// TODO Deal with validation success modal
+// modal opening
+modalBtn.forEach((btn) => btn.addEventListener("click", openModal));
+function openModal() {
+  modaleNode.style.display = "block";
+}
+
+// switch from the form body to the success one
+function switchModalContent(){
+  formBody.style.display="none"
+  successBody.style.display="flex"
+}
