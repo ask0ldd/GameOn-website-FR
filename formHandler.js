@@ -18,8 +18,8 @@ class Validators {
     static isDate(inputNode){
         const inputValue = inputNode.value.trim()
         const dateRegex = new RegExp("^[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}$")
-        // !!! TODO check if date > current date // should trigger a different message or invalid date is enough?
-        return dateRegex.test(inputValue)
+        const isDateYetToCome = (Date.parse(inputValue) - Date.now()) > 0
+        return dateRegex.test(inputValue) && isDateYetToCome
     }
 
     static isEmail(inputNode){
@@ -112,6 +112,7 @@ class FormInput{
 }
 
 
+
 //
 // a reference to the HTML form
 //
@@ -149,8 +150,8 @@ class Form{
 
     // set the right validation rules for each input
     addValidationRulesToInputs(){
-        this.inputs['firstname']?.addValidationRule(() => Validators.isName(this.inputs['firstname'].inputNode)) // TODO : should pass this.inputs['firstname'].inputNode instead
-        this.inputs['lastname']?.addValidationRule(() => Validators.isName(this.inputs['lastname'].inputNode)) // TODO : get rid of selector if no use is made of it
+        this.inputs['firstname']?.addValidationRule(() => Validators.isName(this.inputs['firstname'].inputNode))
+        this.inputs['lastname']?.addValidationRule(() => Validators.isName(this.inputs['lastname'].inputNode))
         this.inputs['email']?.addValidationRule(() => Validators.isEmail(this.inputs['email'].inputNode))
         this.inputs['birthdate']?.addValidationRule(() => Validators.isDate(this.inputs['birthdate'].inputNode))
         this.inputs['tourney']?.addValidationRule(() => Validators.isBetween_0_and_99(this.inputs['tourney'].inputNode))
