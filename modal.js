@@ -7,6 +7,10 @@ function editNav() {
   }
 }
 
+//
+// Following code : Needs full refactoring
+//
+
 // DOM Elements
 const modaleNode = document.querySelector(".bground");
 const modalBtn = document.querySelectorAll(".modal-btn")
