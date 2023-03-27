@@ -61,7 +61,7 @@
               id="reserve"
               action="index.html"
               method="get"
-              onsubmit="return myForm.fullFormValidation()"
+              onsubmit="return myForm.tryFormValidation()"
             >
               <div
                 class="formData">
@@ -72,7 +72,7 @@
                   id="first"
                   name="first"
                   minlength="2"
-                  oninput="return myForm.inputValidation('firstname')"
+                  oninput="return myForm.isInputValid('firstname')"
                 /><br>
                 <p class="errorMessage" id="prenomError">Veuillez entrer 2 caractères valides ou plus.</p><!-- changer message si nombre ou type de caracteres -->
               </div>
@@ -84,7 +84,7 @@
                   type="text"
                   id="last"
                   name="last"
-                  oninput="return myForm.inputValidation('lastname')"
+                  oninput="return myForm.isInputValid('lastname')"
                 /><br>
                 <p class="errorMessage" id="nomError">Veuillez entrer 2 caractères valides ou plus.</p>
               </div>
@@ -96,7 +96,7 @@
                   type="email"
                   id="email"
                   name="email"
-                  oninput="return myForm.inputValidation('email')">
+                  oninput="return myForm.isInputValid('email')">
                 <br>
                 <p class="errorMessage" id="emailError">Saisissez un email valide.</p>
               </div>
@@ -108,7 +108,7 @@
                   type="date"
                   id="birthdate"
                   name="birthdate"
-                  onfocusout="return myForm.inputValidation('birthdate')"
+                  onfocusout="return myForm.isInputValid('birthdate')"
                 /><br>
                 <p class="errorMessage" id="birthdateError">Saisissez une date valide.</p>
               </div>
@@ -121,7 +121,7 @@
                 id="quantity" 
                 name="quantity" 
                 min="0" max="99" 
-                oninput="return myForm.inputValidation('tourney')">
+                oninput="return myForm.isInputValid('tourney')">
                 <br>
                 <p class="errorMessage" id="tourneyError">Entrez un nombre de 0 à 99.</p>
               </div>
@@ -134,7 +134,7 @@
                   id="location1"
                   name="location"
                   value="New York"
-                  onchange="return myForm.inputValidation('locations')"
+                  onchange="return myForm.isInputValid('locations')"
                 />
                 <label class="checkbox-label" for="location1">
                   <span class="checkbox-icon"></span>
@@ -146,7 +146,7 @@
                   id="location2"
                   name="location"
                   value="San Francisco"
-                  onchange="return myForm.inputValidation('locations')"
+                  onchange="return myForm.isInputValid('locations')"
                 />
                 <label class="checkbox-label" for="location2">
                   <span class="checkbox-icon"></span>
@@ -158,7 +158,7 @@
                   id="location3"
                   name="location"
                   value="Seattle"
-                  onchange="return myForm.inputValidation('locations')"
+                  onchange="return myForm.isInputValid('locations')"
                 />
                 <label class="checkbox-label" for="location3">
                   <span class="checkbox-icon"></span>
@@ -170,7 +170,7 @@
                   id="location4"
                   name="location"
                   value="Chicago"
-                  onchange="return myForm.inputValidation('locations')"
+                  onchange="return myForm.isInputValid('locations')"
                 />
                 <label class="checkbox-label" for="location4">
                   <span class="checkbox-icon"></span>
@@ -182,7 +182,7 @@
                   id="location5"
                   name="location"
                   value="Boston"
-                  onchange="return myForm.inputValidation('locations')"
+                  onchange="return myForm.isInputValid('locations')"
                 />
                 <label class="checkbox-label" for="location5">
                   <span class="checkbox-icon"></span>
@@ -194,7 +194,7 @@
                   id="location6"
                   name="location"
                   value="Portland"
-                  onchange="return myForm.inputValidation('locations')"
+                  onchange="return myForm.isInputValid('locations')"
                 />
                 <label class="checkbox-label" for="location6">
                   <span class="checkbox-icon"></span>
@@ -210,7 +210,7 @@
                   type="checkbox"
                   id="checkbox1"
                   checked
-                  onchange="return myForm.inputValidation('conditions')"
+                  onchange="return myForm.isInputValid('conditions')"
                 />
                 <label class="checkbox2-label" for="checkbox1" required>
                   <span class="checkbox-icon"></span>
