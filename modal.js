@@ -17,6 +17,7 @@ const modalBtn = document.querySelectorAll(".modal-btn")
 const formData = document.querySelector(".formData")
 const successBody = document.querySelector("#success-modalbody")
 const formBody = document.querySelector("#form-modalbody")
+const form = document.querySelector("#reserve")
 
 // modal closing
 const closeBtn = document.querySelectorAll(".close")
@@ -29,11 +30,12 @@ successCloseBtn.addEventListener("click", closeModal)
 modaleNode.addEventListener("click", (event) => { 
   if(event.target === modaleNode) closeModal()
 })
+window.addEventListener('keydown', e => {if(e.code == "Escape") return closeModal()}) // add preventdefault?
 
 function closeModal(){
-  formBody.style.display="block"
-  successBody.style.display="none"
-  // TODO : emptying form
+  formBody.style.display = "block"
+  form.reset()
+  successBody.style.display = "none"
   modaleNode.style.display = "none"
 }
 
