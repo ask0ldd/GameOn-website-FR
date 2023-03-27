@@ -2,30 +2,30 @@
 // TODO : still need to add the email validation fn
 class Validators {
 
-    static isName(inputNode){
+    static isName(inputValue){
         //const fieldValue = document.querySelector(fieldId).value.trim()
-        const inputValue = inputNode.value.trim()
+        const trimmedValue = inputValue.trim()
         const nameRegex =  new RegExp ("^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,}$")
-        return nameRegex.test(inputValue)
+        return nameRegex.test(trimmedValue)
     }
 
-    static isBetween_0_and_99(inputNode){
-        const inputValue = inputNode.value.trim()
+    static isBetween_0_and_99(inputValue){
+        const trimmedValue = inputValue.trim()
         const numberRegex = new RegExp ("^[0-9]{1,2}$")
-        return numberRegex.test(inputValue)
+        return numberRegex.test(trimmedValue)
     }
 
-    static isDate(inputNode){
-        const inputValue = inputNode.value.trim()
+    static isDate(inputValue){
+        const trimmedValue = inputValue.trim()
         const dateRegex = new RegExp("^[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}$")
-        const isDateYetToCome = (Date.parse(inputValue) - Date.now()) > 0
-        return dateRegex.test(inputValue) && isDateYetToCome
+        const isDateYetToCome = (Date.parse(trimmedValue) - Date.now()) > 0
+        return dateRegex.test(trimmedValue) && isDateYetToCome
     }
 
-    static isEmail(inputNode){
-        const inputValue = inputNode.value.trim()
+    static isEmail(inputValue){
+        const trimmedValue = inputValue.trim()
         const emailRegex = new RegExp("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$")
-        return emailRegex.test(inputValue)
+        return emailRegex.test(trimmedValue)
     }
 
     static isOneRadioChecked(radiosName){
@@ -97,6 +97,10 @@ class FormInput{
         return this.#inputNode
     }
 
+    get value(){
+        return this.#inputNode.value
+    }
+
     // set a style for the input. allowed values : 'error' || 'neutral' by default.
     set style(style){
         style === 'error' ? this.#inputNode.style.border="2px solid #FF4E60" : this.#inputNode.style.border="none"
@@ -109,6 +113,10 @@ class FormInput{
     addValidationRule(fn){
         this.validationRules.push(fn)
     }
+
+    /* set validationRule(fn){
+        this.validationRules.push(fn)
+    }*/
 }
 
 
@@ -117,6 +125,8 @@ class FormInput{
 // a reference to the HTML form
 //
 class Form{
+
+    inputs
 
     constructor(formSelector){
 
@@ -150,35 +160,31 @@ class Form{
 
     // set the right validation rules for each input
     addValidationRulesToInputs(){
-        this.inputs['firstname']?.addValidationRule(() => Validators.isName(this.inputs['firstname'].inputNode))
-        this.inputs['lastname']?.addValidationRule(() => Validators.isName(this.inputs['lastname'].inputNode))
-        this.inputs['email']?.addValidationRule(() => Validators.isEmail(this.inputs['email'].inputNode))
-        this.inputs['birthdate']?.addValidationRule(() => Validators.isDate(this.inputs['birthdate'].inputNode))
-        this.inputs['tourney']?.addValidationRule(() => Validators.isBetween_0_and_99(this.inputs['tourney'].inputNode))
+        this.inputs['firstname']?.addValidationRule(() => Validators.isName(this.inputs['firstname'].value))
+        this.inputs['lastname']?.addValidationRule(() => Validators.isName(this.inputs['lastname'].value))
+        this.inputs['email']?.addValidationRule(() => Validators.isEmail(this.inputs['email'].value))
+        this.inputs['birthdate']?.addValidationRule(() => Validators.isDate(this.inputs['birthdate'].value))
+        this.inputs['tourney']?.addValidationRule(() => Validators.isBetween_0_and_99(this.inputs['tourney'].value))
         this.inputs['locations']?.addValidationRule(() => Validators.isOneRadioChecked('location'))
         this.inputs['conditions']?.addValidationRule(() => Validators.isBoxChecked(this.inputs['conditions'].inputNode))
     }
 
     // called to realtime validate an input (onchange / oninput)
-    isInputValid(field){
+    isInputValid(field){ // useCallback instead of errormode errorCallback ?
         const isValidationSuccessful = this.inputs[field]?.validationRules.reduce((accu, current) => {
             return (accu === false || current() === false) ? false : true
         }, true)
 
         // if validation fails, the input is switching to errorMode
-        if(isValidationSuccessful === false){
-            this.inputs[field].errorMode = true
-        } else
-        {
-            this.inputs[field].errorMode = false
-        }
+        this.inputs[field].errorMode = false
+        if(isValidationSuccessful === false) this.inputs[field].errorMode = true
 
         return isValidationSuccessful
     }
 
     // called when the form is submitted
     tryFormValidation(){
-
+        //TODO preventdefault
         let isFormValidationSuccessful = true
         for (const key in this.inputs){
             const isInputValid =  this.isInputValid(key) // TODO rename isInputValid here nad in HTML
