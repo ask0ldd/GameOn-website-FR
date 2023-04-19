@@ -79,7 +79,8 @@
 
         li a{
           width: 100%;
-          justify-content: end;
+          justify-content: flex-end;
+          text-align: right;
         }
 
         header{
@@ -95,6 +96,12 @@
           display:flex;
           height:140px;
           width: fit-content;
+        }
+      }
+
+      @media screen and (max-width: 470px) {
+        .menu-item{
+          font-size: 14px;
         }
       }
 
