@@ -1,11 +1,3 @@
-/*function editNav() {
-  var x = document.getElementById("myTopnav");
-  if (x.className === "topnav") {
-    x.className += " responsive";
-  } else {
-    x.className = "topnav";
-  }
-}*/
 
 function dropMenu(){
   const menuItems = document.querySelectorAll('.menu-item')
@@ -14,7 +6,13 @@ function dropMenu(){
 
 document.querySelector(".hamburger-li").addEventListener('click', ()=> dropMenu())
 
+function menuBehaviorOnResize(){
+  const menuItems = document.querySelectorAll('.menu-item')
+  if(window.innerWidth >= 1180 && menuItems[0].style.display !== "flex") menuItems.forEach(item => item.style.display = "flex")
+  if(window.innerWidth < 1180 && menuItems[0].style.display !== "none") menuItems.forEach(item => item.style.display = "none")
+}
 
+window.onresize = menuBehaviorOnResize
 
 class Modal {
   constructor(){
