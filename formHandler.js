@@ -1,58 +1,5 @@
-import { Validators } from "./starterOnly/src/validators.js"
+import { Validators } from "./src/validators.js"
 
-/*
-// helper : grouping all validation fn
-// TODO : still need to add the email validation fn
-class Validators {
-
-    static isName(inputValue){
-        //const fieldValue = document.querySelector(fieldId).value.trim()
-        const trimmedValue = inputValue.trim()
-        const nameRegex =  new RegExp ("^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,}$")
-        return nameRegex.test(trimmedValue)
-    }
-
-    static isBetween_0_and_99(inputValue){
-        const trimmedValue = inputValue.trim()
-        const numberRegex = new RegExp ("^[0-9]{1,2}$")
-        return numberRegex.test(trimmedValue)
-    }
-
-    static isDate(inputValue){
-        const trimmedValue = inputValue.trim()
-        const dateRegex = new RegExp("^[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}$")
-        const isDateYetToCome = (Date.parse(trimmedValue) - Date.now()) > 0
-        return dateRegex.test(trimmedValue) && isDateYetToCome
-    }
-
-    static isEmail(inputValue){
-        const trimmedValue = inputValue.trim()
-        const emailRegex = new RegExp("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$")
-        return emailRegex.test(trimmedValue)
-    }
-
-    static isOneRadioChecked(radiosName){
-        const radios = document.getElementsByName(radiosName)
-
-        for (const radio of radios) {
-            if (radio.checked) {
-                return true
-            }
-        }
-
-        return false
-    }
-
-    static isBoxChecked(inputNode){
-        return inputNode.checked
-    }
-}
-*/
-
-
-//
-// a reference to some DOM error message node
-//
 class ErrorNode { 
 
     constructor(nodeSelector) 
@@ -186,8 +133,9 @@ class Form{
     }
 
     // called when the form is submitted
-    tryFormValidation(){
+    tryFormValidation(e){
         //TODO preventdefault
+        e.preventDefault()
         let isFormValidationSuccessful = true
         for (const key in this.inputs){
             const isInputValid =  this.isInputValid(key) // TODO rename isInputValid here nad in HTML
@@ -202,7 +150,7 @@ class Form{
 }
 
 const myForm = new Form("#reserve")
-document.querySelector('#form-modalbody').addEventListener('submit', () => myForm.tryFormValidation())
+document.querySelector('#form-modalbody').addEventListener('submit', (e) => myForm.tryFormValidation(e))
 document.querySelector('#first').addEventListener('input', () => myForm.isInputValid('firstname'))
 document.querySelector('#last').addEventListener('input', () => myForm.isInputValid('lastname'))
 document.querySelector('#email').addEventListener('input', () => myForm.isInputValid('email'))
