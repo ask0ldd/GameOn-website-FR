@@ -2,9 +2,6 @@ import { Validators } from "./src/utils/validators.js"
 import FormInput from "./src/components/formInput.js"
 import { modal } from "./modal.js"
 
-//
-// a reference to the HTML form
-//
 class Form{
 
     inputs
@@ -29,7 +26,7 @@ class Form{
     }
 
     // pairing the right error nodes with the right inputs 
-    bindErrorNodestoRelatedInputs(){ // try catch & throw error into binderrornode if queryselector doesn't find the node
+    bindErrorNodestoRelatedInputs(){ 
         this.inputs['firstname']?.bindErrorNode('#prenomError')
         this.inputs['lastname']?.bindErrorNode('#nomError')
         this.inputs['email']?.bindErrorNode('#emailError')
@@ -51,7 +48,7 @@ class Form{
     }
 
     // called to realtime validate an input (onchange / oninput)
-    isInputValid(field){ // useCallback instead of errormode errorCallback ?
+    doesInputPassValidation(field){ // useCallback instead of errormode errorCallback ?
         const isValidationSuccessful = this.inputs[field]?.validationRules.reduce((accu, current) => {
             return (accu === false || current() === false) ? false : true
         }, true)
@@ -69,8 +66,8 @@ class Form{
         e.stopPropagation()
         let isFormValidationSuccessful = true
         for (const key in this.inputs){
-            const isInputValid =  this.isInputValid(key) // TODO rename isInputValid here nad in HTML
-            if(isInputValid === false) isFormValidationSuccessful = false
+            const doesInputPassValidation =  this.doesInputPassValidation(key) // TODO rename isInputValid here nad in HTML / doesInputPassValidation instead?
+            if(doesInputPassValidation === false) isFormValidationSuccessful = false
         }
         
         if(isFormValidationSuccessful === false) return false
@@ -83,13 +80,17 @@ class Form{
 // init
 const myForm = new Form("#reserve")
 
-document.querySelector('#form-modalbody').addEventListener('submit', (e) => myForm.tryFormValidation(e))
-document.querySelector('#first').addEventListener('input', () => myForm.isInputValid('firstname'))
-document.querySelector('#last').addEventListener('input', () => myForm.isInputValid('lastname'))
-document.querySelector('#email').addEventListener('input', () => myForm.isInputValid('email'))
-document.querySelector('#birthdate').addEventListener('focusout', () => myForm.isInputValid('birthdate'))
-document.querySelector('#quantity').addEventListener('input', () => myForm.isInputValid('tourney'))
-for(let i = 1; i<7; i++){
-    document.querySelector('#location'+i).addEventListener('change', () => myForm.isInputValid('locations'))
+inputsListenersSetup()
+
+function inputsListenersSetup(){
+    document.querySelector('#form-modalbody').addEventListener('submit', (e) => myForm.tryFormValidation(e))
+    document.querySelector('#first').addEventListener('input', () => myForm.doesInputPassValidation('firstname'))
+    document.querySelector('#last').addEventListener('input', () => myForm.doesInputPassValidation('lastname'))
+    document.querySelector('#email').addEventListener('input', () => myForm.doesInputPassValidation('email'))
+    document.querySelector('#birthdate').addEventListener('focusout', () => myForm.doesInputPassValidation('birthdate'))
+    document.querySelector('#quantity').addEventListener('input', () => myForm.doesInputPassValidation('tourney'))
+    for(let i = 1; i<7; i++){
+        document.querySelector('#location'+i).addEventListener('change', () => myForm.doesInputPassValidation('locations'))
+    }
+    document.querySelector('#checkbox1').addEventListener('change', () => myForm.doesInputPassValidation('conditions'))
 }
-document.querySelector('#checkbox1').addEventListener('change', () => myForm.isInputValid('conditions'))
