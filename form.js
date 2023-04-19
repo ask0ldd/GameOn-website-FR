@@ -66,14 +66,14 @@ class Form{
         e.stopPropagation()
         let isFormValidationSuccessful = true
         for (const key in this.inputs){
-            const doesInputPassValidation =  this.doesInputPassValidation(key) // TODO rename isInputValid here nad in HTML / doesInputPassValidation instead?
+            const doesInputPassValidation =  this.doesInputPassValidation(key)
             if(doesInputPassValidation === false) isFormValidationSuccessful = false
         }
         
         if(isFormValidationSuccessful === false) return false
 
         modal.switchContent()
-        return false // return false despite validation successfull so the form isn't submitted
+        return false // return false despite the validation being successfull so the form isn't submitted
     }
 }
 
