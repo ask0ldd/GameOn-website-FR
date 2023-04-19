@@ -82,16 +82,14 @@ class Form{
 
 // init
 const myForm = new Form("#reserve")
+
 document.querySelector('#form-modalbody').addEventListener('submit', (e) => myForm.tryFormValidation(e))
 document.querySelector('#first').addEventListener('input', () => myForm.isInputValid('firstname'))
 document.querySelector('#last').addEventListener('input', () => myForm.isInputValid('lastname'))
 document.querySelector('#email').addEventListener('input', () => myForm.isInputValid('email'))
 document.querySelector('#birthdate').addEventListener('focusout', () => myForm.isInputValid('birthdate'))
 document.querySelector('#quantity').addEventListener('input', () => myForm.isInputValid('tourney'))
-document.querySelector('#location1').addEventListener('change', () => myForm.isInputValid('locations'))
-document.querySelector('#location2').addEventListener('change', () => myForm.isInputValid('locations'))
-document.querySelector('#location3').addEventListener('change', () => myForm.isInputValid('locations'))
-document.querySelector('#location4').addEventListener('change', () => myForm.isInputValid('locations'))
-document.querySelector('#location5').addEventListener('change', () => myForm.isInputValid('locations'))
-document.querySelector('#location6').addEventListener('change', () => myForm.isInputValid('locations'))
+for(let i = 1; i<7; i++){
+    document.querySelector('#location'+i).addEventListener('change', () => myForm.isInputValid('locations'))
+}
 document.querySelector('#checkbox1').addEventListener('change', () => myForm.isInputValid('conditions'))
