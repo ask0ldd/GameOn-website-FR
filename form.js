@@ -42,14 +42,14 @@ class Form{
         this.inputs['lastname']?.addValidationRule(() => Validators.isName(this.inputs['lastname'].value))
         this.inputs['email']?.addValidationRule(() => Validators.isEmail(this.inputs['email'].value))
         this.inputs['birthdate']?.addValidationRule(() => Validators.isDate(this.inputs['birthdate'].value))
-        this.inputs['tourney']?.addValidationRule(() => Validators.isBetween_0_and_99(this.inputs['tourney'].value))
-        this.inputs['locations']?.addValidationRule(() => Validators.isOneRadioChecked('location'))
-        this.inputs['conditions']?.addValidationRule(() => Validators.isBoxChecked(this.inputs['conditions'].inputNode))
+        this.inputs['tourney']?.addValidationRule(() => Validators.isBetween_0_and_99(this.inputs['tourney'].value)) // soutenance passing value
+        this.inputs['locations']?.addValidationRule(() => Validators.isOneRadioChecked('location')) // soutenance passing
+        this.inputs['conditions']?.addValidationRule(() => Validators.isBoxChecked(this.inputs['conditions'].inputNode)) // soutenance passing node
     }
 
     // called to realtime validate an input (onchange / oninput)
     doesInputPassValidation(field){ // useCallback instead of errormode errorCallback ?
-        const isValidationSuccessful = this.inputs[field]?.validationRules.reduce((accu, current) => {
+        const isValidationSuccessful = this.inputs[field]?.validationRules.reduce((accu, current) => { // soutenance multiple rules
             return (accu === false || current() === false) ? false : true
         }, true)
 
