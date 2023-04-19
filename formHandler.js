@@ -1,75 +1,6 @@
-import { Validators } from "./src/validators.js"
-
-class ErrorNode { 
-
-    constructor(nodeSelector) 
-    {
-        // TODO : deal with non existing node
-        this.node = document.querySelector(nodeSelector)
-    }
-
-    set display(bool){
-        bool ? this.node.style.display="block" : this.node.style.display="none"
-    }
-
-    set message(message){
-        this.message = message
-    }
-}
-
-
-
-// a reference to some DOM form input node. 
-// can be binded to some error node. 
-// can receive validation rules which will be triggered on input || on submit.
-class FormInput{
-
-    #inputNode
-    validationRules = [] // TODO private + getter
-
-    constructor(inputSelector){ // TODO : deal with non existing input
-        this.inputSelector = inputSelector
-        this.#inputNode = document.querySelector(inputSelector) 
-    }
-    
-    // self switching to error mode : style() + displaying related error node
-    set errorMode(bool){
-        if(bool){
-            this.style='error'
-            if(this.errorNode) this.errorNode.display=true
-        }else{
-            this.style='neutral'
-            if(this.errorNode) this.errorNode.display=false
-        }
-    }
-
-    get inputNode(){
-        return this.#inputNode
-    }
-
-    get value(){
-        return this.#inputNode.value
-    }
-
-    // set a style for the input. allowed values : 'error' || 'neutral' by default.
-    set style(style){
-        style === 'error' ? this.#inputNode.style.border="2px solid #FF4E60" : this.#inputNode.style.border="none"
-    }
-
-    bindErrorNode(errorNodeSelector){
-        this.errorNode = new ErrorNode(errorNodeSelector)
-    }
-
-    addValidationRule(fn){
-        this.validationRules.push(fn)
-    }
-
-    /* set validationRule(fn){
-        this.validationRules.push(fn)
-    }*/
-}
-
-
+import { Validators } from "./src/utils/validators.js"
+import { switchModalContent } from "./modal.js"
+import FormInput from "./src/components/formInput.js"
 
 //
 // a reference to the HTML form
@@ -134,8 +65,8 @@ class Form{
 
     // called when the form is submitted
     tryFormValidation(e){
-        //TODO preventdefault
         e.preventDefault()
+        e.stopPropagation()
         let isFormValidationSuccessful = true
         for (const key in this.inputs){
             const isInputValid =  this.isInputValid(key) // TODO rename isInputValid here nad in HTML
@@ -149,6 +80,7 @@ class Form{
     }
 }
 
+// init
 const myForm = new Form("#reserve")
 document.querySelector('#form-modalbody').addEventListener('submit', (e) => myForm.tryFormValidation(e))
 document.querySelector('#first').addEventListener('input', () => myForm.isInputValid('firstname'))

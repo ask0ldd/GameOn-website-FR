@@ -1,4 +1,4 @@
-function editNav() {
+export function editNav() {
   var x = document.getElementById("myTopnav");
   if (x.className === "topnav") {
     x.className += " responsive";
@@ -14,7 +14,7 @@ function editNav() {
 // DOM Elements
 const modaleNode = document.querySelector(".bground");
 const modalBtn = document.querySelectorAll(".modal-btn")
-const formData = document.querySelector(".formData")
+// const formData = document.querySelector(".formData")
 const successBody = document.querySelector("#success-modalbody")
 const formBody = document.querySelector("#form-modalbody")
 const form = document.querySelector("#reserve")
@@ -46,7 +46,19 @@ function openModal() {
 }
 
 // switch from the form body to the success one
-function switchModalContent(){
+export function switchModalContent(){
   formBody.style.display="none"
   successBody.style.display="flex"
+}
+
+class modale {
+
+  constructor(){
+
+  }
+
+}
+
+modale.prototype.close = () => {
+
 }
