@@ -1,6 +1,6 @@
 import { Validators } from "./src/utils/validators.js"
-import { switchModalContent } from "./modal.js"
 import FormInput from "./src/components/formInput.js"
+import { modal } from "./modal.js"
 
 //
 // a reference to the HTML form
@@ -75,7 +75,7 @@ class Form{
         
         if(isFormValidationSuccessful === false) return false
 
-        switchModalContent()
+        modal.switchContent()
         return false // return false despite validation successfull so the form isn't submitted
     }
 }

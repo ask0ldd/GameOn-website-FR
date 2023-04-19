@@ -1,4 +1,4 @@
-export function editNav() {
+function editNav() {
   var x = document.getElementById("myTopnav");
   if (x.className === "topnav") {
     x.className += " responsive";
@@ -7,58 +7,49 @@ export function editNav() {
   }
 }
 
-//
-// Following code : Needs full refactoring
-//
-
-// DOM Elements
-const modaleNode = document.querySelector(".bground");
-const modalBtn = document.querySelectorAll(".modal-btn")
-// const formData = document.querySelector(".formData")
-const successBody = document.querySelector("#success-modalbody")
-const formBody = document.querySelector("#form-modalbody")
-const form = document.querySelector("#reserve")
-
-// modal closing
-const closeBtn = document.querySelectorAll(".close")
-const successCloseBtn = document.querySelector("#success-close")
-// when the x buttons are clicked
-closeBtn.forEach((btn) => btn.addEventListener("click", closeModal))
-// when "fermer" is clicked
-successCloseBtn.addEventListener("click", closeModal)
-// when clicking on the backdrop
-modaleNode.addEventListener("click", (event) => { 
-  if(event.target === modaleNode) closeModal()
-})
-window.addEventListener('keydown', e => {if(e.code == "Escape") return closeModal()}) // add preventdefault?
-
-function closeModal(){
-  formBody.style.display = "block"
-  form.reset()
-  successBody.style.display = "none"
-  modaleNode.style.display = "none"
-}
-
-// modal opening
-modalBtn.forEach((btn) => btn.addEventListener("click", openModal));
-function openModal() {
-  modaleNode.style.display = "block";
-}
-
-// switch from the form body to the success one
-export function switchModalContent(){
-  formBody.style.display="none"
-  successBody.style.display="flex"
-}
-
-class modale {
-
+class Modal {
   constructor(){
-
+    // modale closing buttons refs
+    this.closeBtns = document.querySelectorAll(".close")
+    this.successCloseBtn = document.querySelector("#success-close")
+    this.closeBtns.forEach((btn) => btn.addEventListener("click", () => this.close()))
+    // clicking on the backdrop should close the modale
+    this.modaleNode = document.querySelector(".bground")
+    this.modaleNode.addEventListener("click", (event) => { 
+      if(event.target === this.modaleNode) this.close()
+    })
+    this.successCloseBtn.addEventListener("click", () => this.close())
+    // open
+    this.modalBtns = document.querySelectorAll(".modal-btn")
+    this.modalBtns.forEach((btn) => btn.addEventListener("click", () => this.open()))
+    // modale contents refs
+    this.form = document.querySelector("#reserve")
+    this.formBody = document.querySelector("#form-modalbody")
+    this.successBody = document.querySelector("#success-modalbody")
   }
 
+  open() {
+    this.modaleNode.style.display = "block"
+  }
+
+  close() {
+    this.formBody.style.display = "block"
+    this.form.reset()
+    this.successBody.style.display = "none"
+    this.modaleNode.style.display = "none"
+  }
+
+  switchContent() {
+    this.formBody.style.display="none"
+    this.successBody.style.display="flex"
+  }
+
+  keyboardListenerOn() {
+    window.addEventListener('keydown', e => {if(e.code == "Escape") return this.close()})
+  }
 }
 
-modale.prototype.close = () => {
+const modal = new Modal()
+modal.keyboardListenerOn()
 
-}
+export {modal}
