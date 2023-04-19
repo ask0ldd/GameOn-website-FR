@@ -74,6 +74,7 @@ header {
 
 .topnav .icon {
   display: none;
+  background: none;
   margin: 0px;
 }
 
@@ -547,7 +548,7 @@ footer {
   .topnav.responsive .icon {
     position: absolute;
     right: 0;
-    top: 0;
+    top: 4px;
   }
   .topnav.responsive a {
     float: none;
