@@ -12,22 +12,107 @@
     />
   </head>
   <body>
+    <style>
+      header{
+        display:flex;
+        justify-content: space-between;
+        height:140px;
+        align-items: center;
+      }
+
+      figure{
+        height:140px;
+        display: flex;
+        align-items: center;
+        margin-top: -10px;
+      }
+
+      ul{
+        list-style: none;
+        height:100%;
+        display:flex;
+        font-size: 20px;
+        font-family: Roboto, sans-serif;
+      }
+
+      li{
+        height: 100%;
+        display: flex;
+        align-items: center;
+      }
+
+      ul a{
+        text-decoration: none;
+        padding:1rem 0.75rem;
+        height: fit-content;
+        /*background-color: red;*/
+        display: flex;
+        align-items: center;
+        border-radius: 10px;
+        cursor: pointer;
+      }
+
+      ul a:any-link{
+        color:black;
+      }
+
+      ul a:hover{
+        background-color: red;
+        color:white;
+      }
+
+      .hamburger-li{
+        display:none;
+      }
+
+      @media screen and (max-width: 1180px) {
+        ul{
+          flex-direction: column;
+          align-items: end;
+          width: fit-content;
+        }
+
+        li{
+          width: 100%;
+          display:none;
+        }
+
+        li a{
+          width: 100%;
+          justify-content: end;
+        }
+
+        header{
+          height:fit-content;
+        }
+
+        figure{
+          align-self: start;
+          margin-top: -6px;
+        }
+
+        .hamburger-li{
+          display:flex;
+          height:140px;
+          width: fit-content;
+        }
+      }
+
+    </style>
     <header>
-      <div class="topnav" id="myTopnav">
-        <div class="header-logo">
+        <figure class="header-logo">
           <img alt="logo" src="Logo.png" width="auto" height="auto" />
-        </div>
-        <div class="main-navbar">   
-            <a href="#" class="active"><span>Accueil</span></a>
-            <a href="#"><span>Détails de l'évènement</span></a>
-            <a href="#"><span>À propos</span></a>
-            <a href="#"><span>Contact</span></a>
-            <a href="#"><span>Évènements passés</span></a>
-            <a href="javascript:void(0);" class="icon" id="menu-icon">
+        </figure>
+        <ul class="menu">
+            <li class="hamburger-li"><a href="javascript:void(0);" class="icon" id="hamburger-icon">
               <i class="fa fa-bars"></i>
-            </a>
-        </div>
-      </div>
+            </a></li>
+            <li class="menu-item"><a href="#" class="active">Accueil</a></li>
+            <li class="menu-item"><a href="#">Détails de l'évènement</a></li>
+            <li class="menu-item"><a href="#">À propos</a></li>
+            <li class="menu-item"><a href="#">Contact</a></li>
+            <li class="menu-item"><a href="#">Évènements passés</a></li>
+        </ul>
     </header>
     <main>
       <div class="hero-section">

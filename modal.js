@@ -1,13 +1,20 @@
-function editNav() {
+/*function editNav() {
   var x = document.getElementById("myTopnav");
   if (x.className === "topnav") {
     x.className += " responsive";
   } else {
     x.className = "topnav";
   }
+}*/
+
+function dropMenu(){
+  const menuItems = document.querySelectorAll('.menu-item')
+  return menuItems[0].style.display !== "flex" ? menuItems.forEach(item => item.style.display = "flex") : menuItems.forEach(item => item.style.display = "none")
 }
 
-document.querySelector("#menu-icon").addEventListener('click', ()=> editNav())
+document.querySelector(".hamburger-li").addEventListener('click', ()=> dropMenu())
+
+
 
 class Modal {
   constructor(){
