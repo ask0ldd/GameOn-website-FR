@@ -38,24 +38,22 @@ header {
 .topnav {
   overflow: hidden;
   margin: 3.5% 0;
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
 }
+
 .header-logo {
   float: left;
 }
 .main-navbar {
-  display: flex;
-  column-gap: 2rem;
+  float: right;
 }
+
 .topnav a {
   float: left;
   display: block;
   color: #000000;
   text-align: center;
-  padding: 12px 0;
-  margin: 5px 0;
+  padding: 12px 12px;
+  margin: 5px;
   text-decoration: none;
   font-size: 20px;
   font-family: Roboto, sans-serif;
@@ -71,10 +69,6 @@ header {
   background-color: #ff0000;
   color: #ffffff;
   border-radius: 15px;
-  padding: 0 1rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .topnav .icon {

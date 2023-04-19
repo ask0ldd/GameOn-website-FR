@@ -7,6 +7,8 @@ function editNav() {
   }
 }
 
+document.querySelector("#menu-icon").addEventListener('click', ()=> editNav())
+
 class Modal {
   constructor(){
     // modale closing buttons refs
