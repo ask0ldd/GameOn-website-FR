@@ -45,6 +45,7 @@ header {
 }
 .main-navbar {
   float: right;
+  margin-top: 4px;
 }
 
 .topnav a {
@@ -53,7 +54,7 @@ header {
   color: #000000;
   text-align: center;
   padding: 12px 12px;
-  margin: 5px;
+  margin: 0 5px;
   text-decoration: none;
   font-size: 20px;
   font-family: Roboto, sans-serif;
@@ -73,6 +74,7 @@ header {
 
 .topnav .icon {
   display: none;
+  margin: 0px;
 }
 
 .formData {
@@ -485,9 +487,8 @@ input[data-error]::after {
   display: none;
 }
 footer {
-  padding-left: 2vw;
-  padding-right: 2vw;
-  margin: 0 20px;
+  padding-left: 55px;
+  padding-right: 55px;
 }
 
 @media screen and (max-width: 800px) {
@@ -529,7 +530,7 @@ footer {
   }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1180px) {
   .topnav a {
     display: none;
   }
@@ -539,7 +540,7 @@ footer {
   }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1180px) {
   .topnav.responsive {
     position: relative;
   }
@@ -555,6 +556,23 @@ footer {
   }
 }
 
+@media screen and (max-width: 640px) {
+  .topnav a {
+    font-size: 16px;
+  }
+
+  .hero-headline {
+    line-height: 76px;
+    font-size: 48px;
+    font-weight: 600;
+  }
+
+  .header-logo img {
+    height: 32px;
+    margin-top: 6px;
+  }
+}
+
 @media screen and (max-width: 540px) {
   .topnav a {
     display: none;
@@ -562,7 +580,20 @@ footer {
   .topnav a.icon {
     float: right;
     display: block;
-    margin-top: -15px;
+  }
+
+  .hero-content {
+    min-width: unset;
+  }
+
+  .hero-headline {
+    font-size: 36px;
+    line-height: 52px;
+  }
+
+  .hero-text {
+    margin-top: 36px;
+    font-size: 1.25rem;
   }
 }
 
