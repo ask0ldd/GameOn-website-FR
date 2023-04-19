@@ -60,9 +60,7 @@
               name="reserve"
               id="reserve"
               action="index.html"
-              method="get"
-              onsubmit="return myForm.tryFormValidation()"
-            >
+              method="get">
               <div
                 class="formData">
                 <label for="first">Prénom</label><br>
@@ -71,9 +69,8 @@
                   type="text"
                   id="first"
                   name="first"
-                  minlength="2"
-                  oninput="return myForm.isInputValid('firstname')"
-                /><br>
+                  minlength="2"/>
+                <br>
                 <p class="errorMessage" id="prenomError">Veuillez entrer 2 caractères valides ou plus.</p><!-- changer message si nombre ou type de caracteres -->
               </div>
               <div
@@ -83,9 +80,8 @@
                   class="text-control"
                   type="text"
                   id="last"
-                  name="last"
-                  oninput="return myForm.isInputValid('lastname')"
-                /><br>
+                  name="last"/>
+                <br>
                 <p class="errorMessage" id="nomError">Veuillez entrer 2 caractères valides ou plus.</p>
               </div>
               <div
@@ -95,8 +91,7 @@
                   class="text-control"
                   type="email"
                   id="email"
-                  name="email"
-                  oninput="return myForm.isInputValid('email')">
+                  name="email"/>
                 <br>
                 <p class="errorMessage" id="emailError">Saisissez un email valide.</p>
               </div>
@@ -107,9 +102,8 @@
                   class="text-control"
                   type="date"
                   id="birthdate"
-                  name="birthdate"
-                  onfocusout="return myForm.isInputValid('birthdate')"
-                /><br>
+                  name="birthdate"/>
+                <br>
                 <p class="errorMessage" id="birthdateError">Saisissez une date valide.</p>
               </div>
               <div
@@ -120,8 +114,7 @@
                 class="text-control" 
                 id="quantity" 
                 name="quantity" 
-                min="0" max="99" 
-                oninput="return myForm.isInputValid('tourney')">
+                min="0" max="99">
                 <br>
                 <p class="errorMessage" id="tourneyError">Entrez un nombre de 0 à 99.</p>
               </div>
@@ -133,9 +126,7 @@
                   type="radio"
                   id="location1"
                   name="location"
-                  value="New York"
-                  onchange="return myForm.isInputValid('locations')"
-                />
+                  value="New York"/>
                 <label class="checkbox-label" for="location1">
                   <span class="checkbox-icon"></span>
                   New York</label
@@ -145,9 +136,7 @@
                   type="radio"
                   id="location2"
                   name="location"
-                  value="San Francisco"
-                  onchange="return myForm.isInputValid('locations')"
-                />
+                  value="San Francisco"/>
                 <label class="checkbox-label" for="location2">
                   <span class="checkbox-icon"></span>
                   San Francisco</label
@@ -157,9 +146,7 @@
                   type="radio"
                   id="location3"
                   name="location"
-                  value="Seattle"
-                  onchange="return myForm.isInputValid('locations')"
-                />
+                  value="Seattle"/>
                 <label class="checkbox-label" for="location3">
                   <span class="checkbox-icon"></span>
                   Seattle</label
@@ -169,9 +156,7 @@
                   type="radio"
                   id="location4"
                   name="location"
-                  value="Chicago"
-                  onchange="return myForm.isInputValid('locations')"
-                />
+                  value="Chicago"/>
                 <label class="checkbox-label" for="location4">
                   <span class="checkbox-icon"></span>
                   Chicago</label
@@ -181,9 +166,7 @@
                   type="radio"
                   id="location5"
                   name="location"
-                  value="Boston"
-                  onchange="return myForm.isInputValid('locations')"
-                />
+                  value="Boston"/>
                 <label class="checkbox-label" for="location5">
                   <span class="checkbox-icon"></span>
                   Boston</label
@@ -193,9 +176,7 @@
                   type="radio"
                   id="location6"
                   name="location"
-                  value="Portland"
-                  onchange="return myForm.isInputValid('locations')"
-                />
+                  value="Portland"/>
                 <label class="checkbox-label" for="location6">
                   <span class="checkbox-icon"></span>
                   Portland</label
@@ -209,9 +190,7 @@
                   class="checkbox-input"
                   type="checkbox"
                   id="checkbox1"
-                  checked
-                  onchange="return myForm.isInputValid('conditions')"
-                />
+                  checked/>
                 <label class="checkbox2-label" for="checkbox1" required>
                   <span class="checkbox-icon"></span>
                   J'ai lu et accepté les conditions d'utilisation.
@@ -246,7 +225,7 @@
         Copyright 2014 - 2022, GameOn Inc.
       </p>
     </footer>
-    <script src="modal.js" defer></script>
-    <script src="formHandler.js" defer></script>
+    <script src="modal.js" type="module" defer></script>
+    <script src="formHandler.js" type="module" defer></script>
   </body>
 </html>
