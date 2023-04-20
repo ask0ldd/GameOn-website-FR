@@ -99,7 +99,7 @@ ul a.active {
 
 .formData .errorMessage {
   font-size: 12px;
-  font-weight: 400px;
+  font-weight: 600;
   color: #ff4e60;
   padding: 4px 0 8px 0;
   display: none;

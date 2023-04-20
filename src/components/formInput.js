@@ -24,6 +24,15 @@ export default class FormInput{
         }
     }
 
+    bindErrorNode(errorNodeSelector){
+        this.errorNode = new ErrorNode(errorNodeSelector)
+    }
+
+    addValidationRule(fn){
+        this.validationRules.push(fn)
+    }
+
+    
     get inputNode(){
         return this.#inputNode
     }
@@ -35,14 +44,6 @@ export default class FormInput{
     // set a style for the input. allowed values : 'error' || 'neutral' by default.
     set style(style){
         style === 'error' ? this.#inputNode.style.border="2px solid #FF4E60" : this.#inputNode.style.border="none"
-    }
-
-    bindErrorNode(errorNodeSelector){
-        this.errorNode = new ErrorNode(errorNodeSelector)
-    }
-
-    addValidationRule(fn){
-        this.validationRules.push(fn)
     }
 
     /* set validationRule(fn){
