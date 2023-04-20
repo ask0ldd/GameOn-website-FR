@@ -4,8 +4,6 @@ import { modal } from "./modal.js"
 
 class Form{
 
-    inputs
-
     constructor(formSelector){
 
         this.formNode = document.querySelector(formSelector)
