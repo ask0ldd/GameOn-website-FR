@@ -1,3 +1,6 @@
+import myForm from "./form.js"
+
+const modalBoundaries = []
 
 function dropMenu(){
   const menuItems = document.querySelectorAll('.menu-item')
@@ -46,6 +49,11 @@ class Modal {
     this.successBody.style.display = "none"
     this.modaleNode.style.display = "none"
     this.scrollLock(false)
+    // hide errornodes & reset input borders
+    Object.entries(myForm.inputs).forEach( input => {
+      input[1].errorNode.node.style.display = "none"
+      input[1].style="none"
+    })
   }
 
   switchContent() {
@@ -57,6 +65,7 @@ class Modal {
     window.addEventListener('keydown', e => {if(e.code == "Escape") return this.close()})
   }
 
+  // screenlock behind backdrop
   scrollLock(bool = false)
   {
       if(bool)
@@ -75,4 +84,4 @@ class Modal {
 const modal = new Modal()
 modal.keyboardListenerOn()
 
-export {modal}
+export default modal

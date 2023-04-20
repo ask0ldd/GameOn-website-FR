@@ -1,6 +1,6 @@
 import { Validators } from "./src/utils/validators.js"
 import FormInput from "./src/components/formInput.js"
-import { modal } from "./modal.js"
+import modal from "./modal.js"
 
 class Form{
 
@@ -92,3 +92,5 @@ function inputsListenersSetup(){
     }
     document.querySelector('#checkbox1').addEventListener('change', () => myForm.doesInputPassValidation('conditions'))
 }
+
+export default myForm
