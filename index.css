@@ -33,6 +33,60 @@ img {
 header {
   padding-left: 55px;
   padding-right: 55px;
+  display: flex;
+  justify-content: space-between;
+  height: 140px;
+  align-items: center;
+}
+
+figure {
+  height: 140px;
+  display: flex;
+  align-items: center;
+  margin-top: -10px;
+}
+
+ul {
+  list-style: none;
+  height: 100%;
+  display: flex;
+  font-size: 20px;
+  font-family: Roboto, sans-serif;
+}
+
+li {
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+ul a {
+  text-decoration: none;
+  padding: 1rem 0.75rem;
+  height: fit-content;
+  /*background-color: red;*/
+  display: flex;
+  align-items: center;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+ul a:any-link {
+  color: black;
+}
+
+ul a:hover {
+  background-color: #3876ac;
+  color: white;
+}
+
+ul a.active {
+  background-color: #fe142f;
+  color: white;
+}
+
+.hamburger-li {
+  display: none;
 }
 
 .formData {
@@ -302,6 +356,10 @@ input[data-error]::after {
   cursor: pointer;
   border: 0;
 }
+.btn-submit:hover {
+  background-color: #3876ac;
+}
+
 /* custom select styles */
 .custom-select {
   position: relative;
@@ -448,6 +506,40 @@ footer {
   padding-right: 55px;
 }
 
+@media screen and (max-width: 1180px) {
+  ul {
+    flex-direction: column;
+    align-items: end;
+    width: fit-content;
+  }
+
+  li {
+    width: 100%;
+    display: none;
+  }
+
+  li a {
+    width: 100%;
+    justify-content: flex-end;
+    text-align: right;
+  }
+
+  header {
+    height: fit-content;
+  }
+
+  figure {
+    align-self: start;
+    margin-top: -6px;
+  }
+
+  .hamburger-li {
+    display: flex;
+    height: 140px;
+    width: fit-content;
+  }
+}
+
 @media screen and (max-width: 800px) {
   .hero-section {
     display: block;
@@ -487,9 +579,6 @@ footer {
   }
 }
 
-@media screen and (max-width: 1180px) {
-}
-
 @media screen and (max-width: 640px) {
   .hero-headline {
     line-height: 76px;
@@ -522,6 +611,12 @@ footer {
   main,
   footer {
     padding: 0 24px;
+  }
+}
+
+@media screen and (max-width: 470px) {
+  .menu-item {
+    font-size: 14px;
   }
 }
 

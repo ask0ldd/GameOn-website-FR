@@ -37,6 +37,7 @@ class Modal {
 
   open() {
     this.modaleNode.style.display = "block"
+    this.scrollLock(true)
   }
 
   close() {
@@ -44,6 +45,7 @@ class Modal {
     this.form.reset()
     this.successBody.style.display = "none"
     this.modaleNode.style.display = "none"
+    this.scrollLock(false)
   }
 
   switchContent() {
@@ -53,6 +55,20 @@ class Modal {
 
   keyboardListenerOn() {
     window.addEventListener('keydown', e => {if(e.code == "Escape") return this.close()})
+  }
+
+  scrollLock(bool = false)
+  {
+      if(bool)
+      {
+          let scrollTop = window.pageYOffset || document.documentElement.scrollTop
+          let scrollLeft = window.pageXOffset || document.documentElement.scrollLeft
+          window.onscroll = () => {
+              window.scrollTo(scrollLeft, scrollTop)
+          }
+      }else{
+          window.onscroll = () => {}
+      }
   }
 }
 
