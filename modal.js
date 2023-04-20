@@ -69,7 +69,7 @@ class Modal {
   #keyboardHandler(e) {
 
     const KEYCODE_TAB = 9
-    const isTabPressed = (e.key === 'Tab' || e.keyCode === KEYCODE_TAB || e.keyCode == 27) // [i] echap
+    const isTabPressed = (e.key === 'Tab' || e.keyCode === KEYCODE_TAB || e.keyCode == 27 || e.code === 'Space') // [i] echap
 
     if (!isTabPressed) return
 
@@ -86,6 +86,35 @@ class Modal {
     {
         if (document.activeElement === this.modalBoundaries[1]) { e.preventDefault(); this.modalBoundaries[0].focus();}
     }
+
+    // custom checkboxs / radioboxs keyboard accessibility
+    if(e.code === 'Space'){
+      if(document.activeElement === document.querySelector('[for="location1"]')){ 
+        document.querySelector('#location1').checked = !document.querySelector('#location1').checked
+      }
+      if(document.activeElement === document.querySelector('[for="location2"]')){ 
+        document.querySelector('#location2').checked = !document.querySelector('#location2').checked
+      }
+      if(document.activeElement === document.querySelector('[for="location3"]')){ 
+        document.querySelector('#location3').checked = !document.querySelector('#location3').checked
+      }
+      if(document.activeElement === document.querySelector('[for="location4"]')){ 
+        document.querySelector('#location4').checked = !document.querySelector('#location4').checked
+      }
+      if(document.activeElement === document.querySelector('[for="location5"]')){ 
+        document.querySelector('#location5').checked = !document.querySelector('#location5').checked
+      }
+      if(document.activeElement === document.querySelector('[for="location6"]')){ 
+        document.querySelector('#location6').checked = !document.querySelector('#location6').checked
+      }
+      if(document.activeElement === document.querySelector('[for="checkbox1"]')){ 
+        document.querySelector('#checkbox1').checked = !document.querySelector('#checkbox1').checked
+      }
+      if(document.activeElement === document.querySelector('[for="checkbox2"]')){ 
+        document.querySelector('#checkbox2').checked = !document.querySelector('#checkbox2').checked
+      }
+    }
+
   }
 
   // set focus trap
