@@ -1,7 +1,5 @@
 import myForm from "./form.js"
 
-const modalBoundaries = []
-
 function dropMenu(){
   const menuItems = document.querySelectorAll('.menu-item')
   return menuItems[0].style.display !== "flex" ? menuItems.forEach(item => item.style.display = "flex") : menuItems.forEach(item => item.style.display = "none")
@@ -18,6 +16,9 @@ function menuBehaviorOnResize(){
 window.onresize = menuBehaviorOnResize
 
 class Modal {
+  
+  modalBoundaries
+
   constructor(){
     // modale closing buttons refs
     this.closeBtns = document.querySelectorAll(".close")
@@ -32,15 +33,18 @@ class Modal {
     // open
     this.modalBtns = document.querySelectorAll(".modal-btn")
     this.modalBtns.forEach((btn) => btn.addEventListener("click", () => this.open()))
-    // modale contents refs
+    // modal contents refs
     this.form = document.querySelector("#reserve")
     this.formBody = document.querySelector("#form-modalbody")
     this.successBody = document.querySelector("#success-modalbody")
+    // modal boundaries to limit the tab rotation
+    this.modalBoundaries = [document.querySelector('#modal-close-btn'), document.querySelector('#btn-submit-form')]
   }
 
   open() {
     this.modaleNode.style.display = "block"
     this.scrollLock(true)
+    this.#setFocusTrap()
   }
 
   close() {
@@ -49,11 +53,12 @@ class Modal {
     this.successBody.style.display = "none"
     this.modaleNode.style.display = "none"
     this.scrollLock(false)
-    // hide errornodes & reset input borders
+    // hide errornodes & reset inputs borders
     Object.entries(myForm.inputs).forEach( input => {
       input[1].errorNode.node.style.display = "none"
       input[1].style="none"
     })
+    this.#unsetFocusTrap()
   }
 
   switchContent() {
@@ -61,8 +66,39 @@ class Modal {
     this.successBody.style.display="flex"
   }
 
-  keyboardListenerOn() {
-    window.addEventListener('keydown', e => {if(e.code == "Escape") return this.close()})
+  #keyboardHandler(e) {
+
+    const KEYCODE_TAB = 9
+    const isTabPressed = (e.key === 'Tab' || e.keyCode === KEYCODE_TAB || e.keyCode == 27) // [i] echap
+
+    if (!isTabPressed) return
+
+    if(e.keyCode == 27)
+    {
+        return this.close()
+    }
+
+    if(e.shiftKey)
+    {
+        if (document.activeElement === this.modalBoundaries[0]) { e.preventDefault(); this.modalBoundaries[1].focus();}
+    }
+    else
+    {
+        if (document.activeElement === this.modalBoundaries[1]) { e.preventDefault(); this.modalBoundaries[0].focus();}
+    }
+  }
+
+  // set focus trap
+  #setFocusTrap()
+  {
+      this.modalBoundaries[0].focus()
+      window.addEventListener('keydown', e => this.#keyboardHandler(e))
+  }
+
+  #unsetFocusTrap()
+  {
+      this.modalBoundaries[0].focus()
+      window.removeEventListener('keydown', e => this.#keyboardHandler(e))
   }
 
   // screenlock behind backdrop
@@ -79,9 +115,12 @@ class Modal {
           window.onscroll = () => {}
       }
   }
+
+
 }
 
 const modal = new Modal()
-modal.keyboardListenerOn()
+//modal.keyboardListenersOn()
+// window.addEventListener('keydown', e => modal.keyboardHandler(e))
 
 export default modal

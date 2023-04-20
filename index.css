@@ -128,7 +128,8 @@ main {
   cursor: pointer;
 }
 
-.modal-btn:hover {
+.modal-btn:hover,
+.modal-btn:focus {
   background: #3876ac;
 }
 
@@ -150,7 +151,8 @@ main {
   font-size: 16px;
 }
 
-.button:hover {
+.button:hover,
+.button:focus {
   background: #3876ac;
 }
 
