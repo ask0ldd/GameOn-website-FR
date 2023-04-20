@@ -89,32 +89,13 @@ class Modal {
 
     // custom checkboxs / radioboxs keyboard accessibility
     if(e.code === 'Space'){
-      if(document.activeElement === document.querySelector('[for="location1"]')){ 
-        document.querySelector('#location1').checked = !document.querySelector('#location1').checked
-      }
-      if(document.activeElement === document.querySelector('[for="location2"]')){ 
-        document.querySelector('#location2').checked = !document.querySelector('#location2').checked
-      }
-      if(document.activeElement === document.querySelector('[for="location3"]')){ 
-        document.querySelector('#location3').checked = !document.querySelector('#location3').checked
-      }
-      if(document.activeElement === document.querySelector('[for="location4"]')){ 
-        document.querySelector('#location4').checked = !document.querySelector('#location4').checked
-      }
-      if(document.activeElement === document.querySelector('[for="location5"]')){ 
-        document.querySelector('#location5').checked = !document.querySelector('#location5').checked
-      }
-      if(document.activeElement === document.querySelector('[for="location6"]')){ 
-        document.querySelector('#location6').checked = !document.querySelector('#location6').checked
-      }
-      if(document.activeElement === document.querySelector('[for="checkbox1"]')){ 
-        document.querySelector('#checkbox1').checked = !document.querySelector('#checkbox1').checked
-      }
-      if(document.activeElement === document.querySelector('[for="checkbox2"]')){ 
-        document.querySelector('#checkbox2').checked = !document.querySelector('#checkbox2').checked
+      if(document.activeElement.getAttribute("for") == null) return
+      if((document.activeElement.getAttribute("for")).includes("location") === true || (document.activeElement.getAttribute("for")).includes("checkbox") === true){
+        e.preventDefault()
+        const selector = `#${document.activeElement.getAttribute("for")}`
+        document.querySelector(selector).checked = !document.querySelector(selector).checked
       }
     }
-
   }
 
   // set focus trap
