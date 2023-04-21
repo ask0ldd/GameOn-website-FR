@@ -37,7 +37,7 @@ class Modal {
     this.form = document.querySelector("#reserve")
     this.formBody = document.querySelector("#form-modalbody")
     this.successBody = document.querySelector("#success-modalbody")
-    // modal boundaries to limit the tab rotation
+    // modal boundaries to constrain the tab rotation
     this.modalBoundaries = [document.querySelector('#modal-close-btn'), document.querySelector('#btn-submit-form')]
   }
 
@@ -87,7 +87,7 @@ class Modal {
         if (document.activeElement === this.modalBoundaries[1]) { e.preventDefault(); this.modalBoundaries[0].focus();}
     }
 
-    // custom checkboxs / radioboxs keyboard accessibility
+    // custom checkboxes / radioboxes keyboard accessibility
     if(e.code === 'Space'){
       if(document.activeElement.getAttribute("for") == null) return
       if((document.activeElement.getAttribute("for")).includes("location") === true || (document.activeElement.getAttribute("for")).includes("checkbox") === true){
@@ -130,7 +130,5 @@ class Modal {
 }
 
 const modal = new Modal()
-//modal.keyboardListenersOn()
-// window.addEventListener('keydown', e => modal.keyboardHandler(e))
 
 export default modal
