@@ -74,9 +74,9 @@ class Modal {
   #keyboardHandler(e) {
 
     const KEYCODE_TAB = 9
-    const isTabPressed = (e.key === 'Tab' || e.keyCode === KEYCODE_TAB || e.keyCode == 27 || e.code === 'Space') // [i] echap
+    const isExpectedPressed = (e.key === 'Tab' || e.keyCode === KEYCODE_TAB || e.keyCode == 27 || e.code === 'Space') // [i] echap
 
-    if (!isTabPressed) return
+    if (!isExpectedPressed) return
 
     if(e.keyCode == 27)
     {
