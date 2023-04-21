@@ -18,13 +18,13 @@ export class Validators {
     static isDate(inputValue){
         const trimmedValue = inputValue.trim()
         const dateRegex = new RegExp("^[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}$")
-        const isDateYetToCome = (Date.parse(trimmedValue) - Date.now()) > 0
-        return dateRegex.test(trimmedValue) && isDateYetToCome
+        const isPastDate = (Date.parse(trimmedValue) - Date.now()) < 0
+        return dateRegex.test(trimmedValue) && isPastDate
     }
 
     static isEmail(inputValue){
         const trimmedValue = inputValue.trim()
-        const emailRegex = new RegExp("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$")
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
         return emailRegex.test(trimmedValue)
     }
 
