@@ -1,16 +1,21 @@
 import myForm from "./form.js"
 
 function dropMenu(){
-  const menuItems = document.querySelectorAll('.menu-item')
-  return menuItems[0].style.display !== "flex" ? menuItems.forEach(item => item.style.display = "flex") : menuItems.forEach(item => item.style.display = "none")
+  const menuIcon = document.querySelector('#hamburger-icon i')
+  const menuItems = document.querySelectorAll('.menu-item') // fa-times fa-bars
+  return menuItems[0].style.display !== "flex" ? 
+  menuItems.forEach(item => {item.style.display = "flex"; menuIcon.classList.toggle("fa-times"); menuIcon.classList.toggle("fa-bars"); }) : 
+  menuItems.forEach(item => {item.style.display = "none"; menuIcon.classList.toggle("fa-times"); menuIcon.classList.toggle("fa-bars"); })
 }
 
 document.querySelector(".hamburger-li").addEventListener('click', ()=> dropMenu())
 
 function menuBehaviorOnResize(){
+  const menuIcon = document.querySelector('#hamburger-icon i')
   const menuItems = document.querySelectorAll('.menu-item')
   if(window.innerWidth >= 1180 && menuItems[0].style.display !== "flex") menuItems.forEach(item => item.style.display = "flex")
   if(window.innerWidth < 1180 && menuItems[0].style.display !== "none") menuItems.forEach(item => item.style.display = "none")
+  if(menuIcon.classList.contains("fa-times")) {menuIcon.classList.toggle("fa-times"); menuIcon.classList.toggle("fa-bars");}
 }
 
 window.onresize = menuBehaviorOnResize

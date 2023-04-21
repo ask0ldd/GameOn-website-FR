@@ -520,6 +520,10 @@ footer {
     display: none;
   }
 
+  li:not(.hamburger-li) {
+    transform: translateY(-40px);
+  }
+
   li a {
     width: 100%;
     justify-content: flex-end;
